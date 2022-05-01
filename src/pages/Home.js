@@ -1,14 +1,5 @@
-import Table from "../components/Table";
 import { useEffect, useState } from "react";
-
-const columns = [
-    "Watch", "Time", "Address", "Subdivision", "MLS #", "Orig List $", "City / ISD",
-    "Zip", "SqFT.", "Bed/Bath", "Mstr Bed Lvl", "Pool"
-];
-const mask = [
-    null, "update", "address", "subdivision", "listingId", "listPrice", ["city", "schoolDistrict"],
-    "zip", "sqft", ["bed", "bath"], "masterLevel", "pool"
-];
+import SaleTable from "../components/tables/Sale";
 
 export default function Home() {
 
@@ -22,30 +13,6 @@ export default function Home() {
             setListings(data);
         });
     };
-
-    const getMaskedListing = (listing) => {
-        const final = [];
-        mask.forEach((element) => {
-            if(element === null) {
-                final.push(null);
-                return;
-            }
-            if(typeof element == 'string') {
-                final.push(listing[element]);
-                return;
-            }
-            if(Array.isArray(element)) {
-                const temp = []
-                element.forEach(field => {
-                    temp.push(listing[field]);
-                });
-                final.push(temp.join(" / "));
-                return;
-            }
-            final.push(null);
-        });
-        return final;
-    }
 
     useEffect(() => {
         async function fetchData() {
@@ -64,17 +31,21 @@ export default function Home() {
     return (
         <>
             <h1>Home Page</h1>
-            <Table
-            header="Powerpage NEW Listings for SALE - {date}"
-            subheader="Map Listings (sat image) - pin dropped for each listing in the list"
-            variant="primary"
-            keys={columns} 
-            mask={mask}
-            values={listings && listings.map(listing => {
-                return getMaskedListing(listing);
-            })}
-            linkColumn={4}
-            />
+            <div className="my-4">
+                <SaleTable listings={listings}/>
+            </div>
+            {/* <br />
+            <div className="my-4">
+                <LeaseTable listings={listings}/>
+            </div>
+            <br />
+            <div className="my-4">
+                <PriceTable listings={listings}/>
+            </div>
+            <br />
+            <div className="my-4">
+                <StatusTable listings={listings}/>
+            </div> */}
         </>
     )
 }
