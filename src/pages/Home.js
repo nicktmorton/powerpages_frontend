@@ -26,6 +26,10 @@ export default function Home() {
         setInterval(getListings,30000);
     },[]);
 
+    useEffect(() => {
+        document.title = "PowerPages Home"
+    }, []);
+
     if(loading) return ( <div>Loading...</div> )
 
     return (

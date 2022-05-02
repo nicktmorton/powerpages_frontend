@@ -18,6 +18,7 @@ const mapping = [
         "link": {
             "path": "/listing/",
             "mask": "listingId"
+        }
     },
     {
         "title": "Subdivision",

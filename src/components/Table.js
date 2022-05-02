@@ -76,7 +76,7 @@ export default function Table({ header, subheader, variant, mapping, listings })
                                 : 
                                 (timestamps[index]
                                 ?
-                                moment(col).tz("America/Chicago").format("YYYY-MM-DD h:mm:ss a")
+                                col
                                 :
                                 col
                                 )
