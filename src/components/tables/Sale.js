@@ -39,7 +39,8 @@ const mapping = [
     },
     {
         "title": "Orig List $",
-        "mask": "listPrice"
+        "mask": "listPrice",
+        "price": true
     },
     {
         "title": "City / ISD",

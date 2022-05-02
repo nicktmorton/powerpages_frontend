@@ -12,6 +12,7 @@ export default function Table({ header, subheader, variant, mapping, listings })
     const sorts = [];
     const links = [];
     const timestamps = [];
+    const prices = [];
 
     const getMaskedListing = (listing) => {
         const final = [];
@@ -43,6 +44,7 @@ export default function Table({ header, subheader, variant, mapping, listings })
         sorts.push("sortable" in m && m["sortable"] ? true : false);
         links.push("link" in m ? m["link"] : null);
         timestamps.push("timestamp" in m && m["timestamp"] ? true : false);
+        prices.push("price" in m && m["price"] ? true : false)
     });
 
     return (
@@ -76,9 +78,14 @@ export default function Table({ header, subheader, variant, mapping, listings })
                                 : 
                                 (timestamps[index]
                                 ?
-                                moment(col).format("YYYY-MM-DD h:mm:ss a")
+                                moment(col).utcOffset(0,true).format("YYYY-MM-DD h:mm:ss a")
+                                :
+                                (prices[index]
+                                ?
+                                col.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
                                 :
                                 col
+                                )
                                 )
                                 )
                                 }
