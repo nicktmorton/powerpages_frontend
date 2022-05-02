@@ -51,12 +51,8 @@ const mapping = [
         "mask": "sqft"
     },
     {
-        "title": "Bed/Bath",
-        "mask": [ "bed", "bath" ]
-    },
-    {
-        "title": "Mstr Lvl",
-        "mask": "masterLevel"
+        "title": "Bed/Bath/Mstr Lvl",
+        "mask": [ "bed", "bath", "masterLevel"]
     },
     {
         "title": "Pool",
