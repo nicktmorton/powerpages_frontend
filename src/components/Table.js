@@ -72,11 +72,11 @@ export default function Table({ header, subheader, variant, mapping, listings })
                                 : 
                                 (links[index] 
                                 ? 
-                                <Link to={`${links[index]["path"]}${v[links[index]["path"]]}`}>{col}</Link> 
+                                <Link to={`${links[index]["path"]}${v[links[index]["mask"]]}`}>{col}</Link> 
                                 : 
                                 (timestamps[index]
                                 ?
-                                col
+                                moment(col).format("YYYY-MM-DD h:mm:ss a")
                                 :
                                 col
                                 )
