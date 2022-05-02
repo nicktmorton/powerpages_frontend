@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
     Row,
-    Col
+    Col,
+    Table
 } from "react-bootstrap";
 
 export default function Listing() {
@@ -41,82 +42,84 @@ export default function Listing() {
                     <Row className="mt-4">
                         <Col>
                             <h5>Details</h5>
-                            <table>
-                                <tr>
-                                    <td>
-                                        List Price: {listing['ListPrice'] ? `$${listing['ListPrice']}` : ''}
-                                    </td>
-                                    <td>
-                                        Bedrooms: {listing['BedroomsTotal'] ? `${listing['BedroomsTotal']}` : ''}
-                                    </td>
-                                    <td>
-                                        Subdiv: {listing['SubdivisionName'] ? `${listing['SubdivisionName']}` : ''}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Sq.Ft.: {listing['LivingArea'] ? `${listing['LivingArea']}` : ''}
-                                    </td>
-                                    <td>
-                                        Bathrooms: {listing['BathroomsTotalInteger'] ? `${listing['BathroomsTotalInteger']}` : ''}
-                                    </td>
-                                    <td>
-                                        Lot Size: {listing['LotSizeDimensions'] ? `${listing['LotSizeDimensions']}` : ''}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Stories: {listing['StoriesTotal'] ? `${listing['StoriesTotal']}` : ''}
-                                    </td>
-                                    <td>
-                                        Liv Areas: {listing['NumberOfLivingAreas'] ? `${listing['NumberOfLivingAreas']}` : ''}
-                                    </td>
-                                    <td>
-                                        Acres: {listing['LotSizeAcres'] ? `${listing['LotSizeAcres']}` : ''}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Yr Blt: {listing['YearBuilt'] ? `${listing['YearBuilt']}` : ''}
-                                    </td>
-                                    <td>
-                                        Pool: {listing['PoolYN'] ? (listing['PoolYN'] == "1" ? 'Yes' : 'No') : ''}
-                                    </td>
-                                    <td>
-                                        HOA: {listing['AssociationFee'] ? `${listing['AssociationFee']}` : ''}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        City: {listing['City'] ? `${listing['City']}` : ''}
-                                    </td>
-                                    <td>
-                                        Garage: {listing['GarageSpaces'] ? `${listing['GarageSpaces']}` : ''}
-                                    </td>
-                                    <td>
-                                        ISD: {listing['SchoolDistrict'] ? `${listing['SchoolDistrict']}` : ''}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        County: {listing['CountyOrParish'] ? `${listing['CountyOrParish']}` : ''}
-                                    </td>
-                                    <td>
-                                        MLS #: {listing['ListingId'] ? `${listing['ListingId']}` : ''}
-                                    </td>
-                                    <td>
-                                        Schools: 
-                                        {listing['ElementarySchoolName'] ? ` ${listing['ElementarySchoolName']} / ` : ''}
-                                        {listing['MiddleSchoolName'] ? `${listing['MiddleSchoolName']} / ` : ''}
-                                        {listing['HighSchoolName'] ? `${listing['HighSchoolName']}` : ''}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Zip: {listing['PostalCode'] ? `${listing['PostalCode']}` : ''}
-                                    </td>
-                                </tr>
-                            </table>
+                            <Table>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <b>List Price</b>: {listing['ListPrice'] ? `$${listing['ListPrice']}` : ''}
+                                        </td>
+                                        <td>
+                                            <b>Bedrooms</b>: {listing['BedroomsTotal'] ? `${listing['BedroomsTotal']}` : ''}
+                                        </td>
+                                        <td>
+                                            <b>Subdiv</b>: {listing['SubdivisionName'] ? `${listing['SubdivisionName']}` : ''}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>Sq.Ft.</b>: {listing['LivingArea'] ? `${listing['LivingArea']}` : ''}
+                                        </td>
+                                        <td>
+                                            <b>Bathrooms</b>: {listing['BathroomsTotalInteger'] ? `${listing['BathroomsTotalInteger']}` : ''}
+                                        </td>
+                                        <td>
+                                            <b>Lot Size</b>: {listing['LotSizeDimensions'] ? `${listing['LotSizeDimensions']}` : ''}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>Stories</b>: {listing['StoriesTotal'] ? `${listing['StoriesTotal']}` : ''}
+                                        </td>
+                                        <td>
+                                            <b>Liv Areas</b>: {listing['NumberOfLivingAreas'] ? `${listing['NumberOfLivingAreas']}` : ''}
+                                        </td>
+                                        <td>
+                                            <b>Acres</b>: {listing['LotSizeAcres'] ? `${listing['LotSizeAcres']}` : ''}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>Yr Blt</b>: {listing['YearBuilt'] ? `${listing['YearBuilt']}` : ''}
+                                        </td>
+                                        <td>
+                                            <b>Pool</b>: {listing['PoolYN'] ? (listing['PoolYN'] == "1" ? 'Yes' : 'No') : ''}
+                                        </td>
+                                        <td>
+                                            <b>HOA</b>: {listing['AssociationFee'] ? `${listing['AssociationFee']}` : ''}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>City</b>: {listing['City'] ? `${listing['City']}` : ''}
+                                        </td>
+                                        <td>
+                                            <b>Garage</b>: {listing['GarageSpaces'] ? `${listing['GarageSpaces']}` : ''}
+                                        </td>
+                                        <td>
+                                            <b>ISD</b>: {listing['SchoolDistrict'] ? `${listing['SchoolDistrict']}` : ''}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>County</b>: {listing['CountyOrParish'] ? `${listing['CountyOrParish']}` : ''}
+                                        </td>
+                                        <td>
+                                            <b>MLS #</b>: {listing['ListingId'] ? `${listing['ListingId']}` : ''}
+                                        </td>
+                                        <td>
+                                            <b>Schools</b>: 
+                                            {listing['ElementarySchoolName'] ? ` ${listing['ElementarySchoolName']} / ` : ''}
+                                            {listing['MiddleSchoolName'] ? `${listing['MiddleSchoolName']} / ` : ''}
+                                            {listing['HighSchoolName'] ? `${listing['HighSchoolName']}` : ''}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>Zip</b>: {listing['PostalCode'] ? `${listing['PostalCode']}` : ''}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </Table>
                         </Col>
                     </Row>
                 </Col>
