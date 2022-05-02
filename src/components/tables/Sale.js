@@ -55,7 +55,7 @@ const mapping = [
         "mask": [ "bed", "bath" ]
     },
     {
-        "title": "Mstr Bed Lvl",
+        "title": "Mstr Lvl",
         "mask": "masterLevel"
     },
     {
