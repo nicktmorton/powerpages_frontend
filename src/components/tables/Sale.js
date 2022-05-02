@@ -16,6 +16,9 @@ const mapping = [
         "title": "Address",
         "mask": "address",
         "sortable": true
+        "link": {
+            "path": "/listing/",
+            "mask": "listingId"
     },
     {
         "title": "Subdivision",
