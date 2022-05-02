@@ -67,7 +67,7 @@ export default function Table({ header, subheader, variant, mapping, listings })
                     const masked = getMaskedListing(v);
                     return (<tr style={{backgroundColor: '#FFFFFF'}} key={vindex}>
                         {masked.map((col,index) => (
-                            <td className={(index === 0 && col===null) ? "text-center" : ""} key={`${vindex}_${index}`}>
+                            <td align={prices[index] ? "right" : "left"} className={(index === 0 && col===null) ? "text-center" : ""} key={`${vindex}_${index}`}>
                                 {index === 0 && col === null 
                                 ? 
                                 <input type="checkbox"/> 
@@ -78,11 +78,11 @@ export default function Table({ header, subheader, variant, mapping, listings })
                                 : 
                                 (timestamps[index]
                                 ?
-                                moment(col).utcOffset(0,true).format("YYYY-MM-DD h:mm:ss a")
+                                moment(col).format("YYYY-MM-DD h:mm:ss a")
                                 :
                                 (prices[index]
                                 ?
-                                col.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+                                col.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 })
                                 :
                                 col
                                 )
