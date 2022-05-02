@@ -79,7 +79,7 @@ export default function SaleTable({ listings }) {
     return (
         <>
             <Table
-            header="Powerpage NEW Listings for SALE - {date}"
+            header="Powerpage NEW RESIDENTIAL SINGLE FAMILY Listings for SALE - {date}"
             subheader="Map Listings (sat image) - pin dropped for each listing in the list"
             variant="primary"
             mapping={mapping}
