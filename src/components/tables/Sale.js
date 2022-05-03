@@ -14,7 +14,8 @@ const mapping = [
     },
     {
         "title": "Address",
-        "mask": "address",
+        "mask": [ "streetNumber","streetDirPrefix", "streetName", "streetSuffix", "streetDirSuffix" ],
+        "delimiter": " ",
         "link": {
             "path": "/listing/",
             "mask": "listingId"
@@ -31,20 +32,17 @@ const mapping = [
     },
     {
         "title": "MLS #",
-        "mask": "listingId",
-        "link": {
-            "path": "/listing/",
-            "mask": "listingId"
-        }
+        "mask": "listingId"
     },
     {
-        "title": "Orig List $",
-        "mask": "listPrice",
+        "title": "Orig / Current $",
+        "mask": [ "originalPrice", "listPrice" ],
         "price": true
     },
     {
         "title": "City / ISD",
-        "mask": [ "city", "schoolDistrict" ]
+        "mask": [ "city", "schoolDistrict" ],
+        "delimiter": " / "
     },
     {
         "title": "Zip",
@@ -52,11 +50,13 @@ const mapping = [
     },
     {
         "title": "SqFT.",
-        "mask": "sqft"
+        "mask": "sqft",
+        "number": true   
     },
     {
         "title": "Bed/Bath/Mstr Lvl",
-        "mask": [ "bed", "bath", "masterLevel"]
+        "mask": [ "bed", "bath", "masterLevel"],
+        "delimiter": " / "
     },
     {
         "title": "Pool",
@@ -82,7 +82,6 @@ export default function SaleTable({ listings }) {
         <>
             <Table
             header="Powerpage NEW RESIDENTIAL SINGLE FAMILY Listings for SALE - {date}"
-            subheader="Map Listings (sat image) - pin dropped for each listing in the list"
             variant="primary"
             mapping={mapping}
             listings={filtered}

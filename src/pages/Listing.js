@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import {
     Row,
     Col,
@@ -18,6 +18,7 @@ export default function Listing() {
         .then(res => res.json())
         .then(data => {
             setListing(data);
+            console.log(data);
         });
     };
 
@@ -26,6 +27,7 @@ export default function Listing() {
             await getListing();
         }
         fetchData().then(setLoading(false));
+        document.title = "PowerPages Property Detail"
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
 
@@ -33,11 +35,12 @@ export default function Listing() {
 
     return (
         <>
-            <h3>Listing - {id}</h3>
+            <h3>{listing['StreetNumber']} {listing['StreetName']} {listing['StreetSuffix']}</h3>
             <Row>
                 <Col xs="12" sm="8">
                     <Row>
-                        <Col><img src={(listing['_photos'] && listing['_photos'][0]) || ""} alt="" /></Col>
+                        <Col><img src={(listing['_photos'] && listing['_photos'][0]) || ""} alt="" style={{border:"3px solid black"}} /></Col>
+                        <p><a href={`https://www.google.com/maps?t=k&q=loc:${listing['Latitude']},${listing['Longitude']}&ll=${listing['Latitude']},${listing['Longitude']}`} target={"blank"}>Satellite View</a></p>
                     </Row>
                     <Row className="mt-4">
                         <Col>
@@ -120,6 +123,9 @@ export default function Listing() {
                                     </tr>
                                 </tbody>
                             </Table>
+
+                            <p>{listing['PublicRemarks']}</p>        
+
                         </Col>
                     </Row>
                 </Col>
@@ -128,7 +134,7 @@ export default function Listing() {
                     <Row>
                         {listing['_photos'] && listing['_photos'].map((l,index) => (
                             <Col xs="6" className="mb-3" key={index}>
-                                <img src={l} alt="" style={{ objectFit: "scale-down", width: "auto", height: "auto", maxHeight: "100%", maxWidth: "100%" }} />
+                                <img src={l} alt="" style={{ objectFit: "scale-down", width: "auto", height: "auto", maxHeight: "100%", maxWidth: "100%", border:"3px solid black" }} />
                             </Col>
                         ))}
                     </Row>
