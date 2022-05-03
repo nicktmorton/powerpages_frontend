@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import SaleTable from "../components/tables/Sale";
+import PriceTable from "../components/tables/Price";
 
 export default function Home() {
 
@@ -7,7 +7,7 @@ export default function Home() {
     const [listings, setListings] = useState([]);
 
     const getListings = async () => {
-        await fetch(`${process.env.REACT_APP_API_URL}/api/listings/getRecentListings`)
+        await fetch(`${process.env.REACT_APP_API_URL}/api/listings/getRecentListingsPrice`)
         .then(res => res.json())
         .then(data => {
             setListings(data);
@@ -27,16 +27,16 @@ export default function Home() {
     },[]);
 
     useEffect(() => {
-        document.title = "PowerPages Home"
+        document.title = "PowerPages Price Changes"
     }, []);
 
     if(loading) return ( <div>Loading...</div> )
 
     return (
         <>
-            <h1>Residential SALE</h1>
+            <h1>Price Changes</h1>
             <div className="my-4">
-                <SaleTable listings={listings}/>
+                <PriceTable listings={listings}/>
             </div>
             {/* <br />
             <div className="my-4">

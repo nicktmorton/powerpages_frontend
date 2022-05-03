@@ -81,7 +81,7 @@ export default function SaleTable({ listings }) {
     return (
         <>
             <Table
-            header="Powerpage NEW RESIDENTIAL SINGLE FAMILY Listings for SALE - {date}"
+            header="Powerpage NEW RESIDENTIAL SINGLE FAMILY Listings for SALE"
             variant="primary"
             mapping={mapping}
             listings={filtered}
