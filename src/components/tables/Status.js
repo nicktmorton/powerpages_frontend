@@ -35,6 +35,10 @@ const mapping = [
         "mask": "listingId"
     },
     {
+        "title": "Status",
+        "mask": "status"
+    },
+    {
         "title": "Orig / Current $",
         "mask": [ "originalPrice", "listPrice" ],
         "price": true

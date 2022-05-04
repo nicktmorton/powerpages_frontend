@@ -34,7 +34,7 @@ export default function Home() {
 
     return (
         <>
-            <h1>Status Changes</h1>
+            <h1>Status Changes - {listings.length} Records</h1>
             <div className="my-4">
                 <StatusTable listings={listings}/>
             </div>

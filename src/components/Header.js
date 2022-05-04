@@ -14,10 +14,10 @@ export default function Header() {
         onSelect={(selected) => setActive(selected)}
         >
             <Nav.Item>
-                <Nav.Link href="/home">New Residential Single Family</Nav.Link>
+                <Nav.Link href="/home">New Residential Sale</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-                <Nav.Link href="/lease">Lease</Nav.Link>
+                <Nav.Link href="/lease">New Residential Lease</Nav.Link>
             </Nav.Item>
             <Nav.Item>
                 <Nav.Link href="/price">Price Changes</Nav.Link>

@@ -34,7 +34,7 @@ export default function Home() {
 
     return (
         <>
-            <h1>Residential Lease</h1>
+            <h1>New Residential Lease - {listings.length} Records</h1>
             <div className="my-4">
                 <LeaseTable listings={listings}/>
             </div>
