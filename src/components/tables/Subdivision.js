@@ -1,5 +1,4 @@
 import Table from "../Table";
-import { useEffect, useState } from "react";
 
 const mapping = [
     {
@@ -7,14 +6,10 @@ const mapping = [
         "mask": null
     },
     {
-        "title": "Update",
+        "title": "Time",
         "mask": "update",
         "sortable": true,
         "timestamp": true
-    },
-    {
-        "title": "List Date",
-        "mask": "listDate"
     },
     {
         "title": "Address",
@@ -68,27 +63,15 @@ const mapping = [
     }
 ];
 
-export default function SaleTable({ listings }) {
-
-    const [filtered, setFiltered] = useState([]);
-
-    const filterListings = () => {
-        const watched = [];
-        const temp = listings.filter(listing => listing["transactionType"] === "For Sale");
-        setFiltered(temp);
-    }
-
-    useEffect(() => {
-        filterListings();
-    },[listings]);
+export default function SubdivisionTable({ listings }) {
 
     return (
         <>
             <Table
-            header="Powerpage NEW RESIDENTIAL SINGLE FAMILY Listings for SALE"
+            header="Powerpage SOLD Listings"
             variant="primary"
             mapping={mapping}
-            listings={filtered}
+            listings={listings}
             />
         </>
     )

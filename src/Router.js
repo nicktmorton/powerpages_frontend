@@ -5,6 +5,7 @@ import Lease from "./pages/Lease";
 import Price from "./pages/Price";
 import Status from "./pages/Status";
 import Listing from "./pages/Listing";
+import Subdivision from "./pages/Subdivision";
 
 import Header from './components/Header';
 
@@ -38,6 +39,10 @@ export default function Router() {
                     <Route 
                     path="/listing/:id"
                     element={<Listing />}
+                    />
+                    <Route 
+                    path="/subdivision/:name"
+                    element={<Subdivision />}
                     />
                 </Routes>
             </div>

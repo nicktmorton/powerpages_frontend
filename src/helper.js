@@ -1,4 +1,5 @@
 const fs = require('fs');
+const moment = require('moment-timezone');
 
 const helper = {
 
@@ -10,8 +11,17 @@ const helper = {
             mapping = temp;
         });
         return mapping;
+    },
+    getDateRange: () => {
+        let dateArr = [];
+        let curr = moment().tz('America/Chicago').format('YYYY-MM-DD');
+        dateArr.push(curr);
+        for (let i = 0; i < 5; i++) {
+            curr = moment(curr).subtract(1,"day").format('YYYY-MM-DD');
+            dateArr.push(curr);
+        }
+        return dateArr;
     }
-
 }
 
 export default helper;
