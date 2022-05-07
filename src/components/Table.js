@@ -17,37 +17,42 @@ export default function Table({ header, subheader, variant, mapping, listings })
 
     const getMaskedListing = (listing) => {
         const final = [];
-        masks.forEach((element,index) => {
-            if(element === null) {
+        mapping.forEach((element,index) => {
+            titles.push(element["title"]);
+            const mask = element["mask"];
+            if(mask === null) {
                 final.push(null);
                 return;
             }
-            if(typeof element == 'string') {
-                final.push(listing[element]);
+            const isArray = Array.isArray(mask);
+            const type = typeof mask;
+            let value = null;
+            if(type != "string") {
+                final.push(null);
                 return;
             }
-            if(Array.isArray(element)) {
-                const temp = []
-                element.forEach(field => {
+            if(isArray) {
+                const temp = [];
+                mask.forEach(field => {
                     temp.push(listing[field]);
                 });
-                final.push(temp.join(mapping[index]['delimiter']));
-                return;
+                value = temp.join(mapping[index]['delimiter']);
+            } else {
+                value = listing[mask];
             }
-            final.push(null);
         });
         return final;
     }
 
-    mapping.forEach(m => {
-        titles.push(m["title"]);
-        masks.push(m["mask"]);
-        sorts.push("sortable" in m && m["sortable"] ? true : false);
-        links.push("link" in m ? m["link"] : null);
-        timestamps.push("timestamp" in m && m["timestamp"] ? true : false);
-        prices.push("price" in m && m["price"] ? true : false);
-        numbers.push("number" in m && m["number"] ? true : false);
-    });
+    // mapping.forEach(m => {
+    //     titles.push(m["title"]);
+    //     masks.push(m["mask"]);
+    //     sorts.push("sortable" in m && m["sortable"] ? true : false);
+    //     links.push("link" in m ? m["link"] : null);
+    //     timestamps.push("timestamp" in m && m["timestamp"] ? true : false);
+    //     prices.push("price" in m && m["price"] ? true : false);
+    //     numbers.push("number" in m && m["number"] ? true : false);
+    // });
 
     return (
         <BSTable size="sm" bordered hover>

@@ -7,6 +7,8 @@ import Status from "./pages/Status";
 import Listing from "./pages/Listing";
 import Subdivision from "./pages/Subdivision";
 
+import Register from './pages/Auth/Register';
+
 import Header from './components/Header';
 
 export default function Router() {
