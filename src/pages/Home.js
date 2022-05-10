@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import SaleTable from "../components/tables/Sale";
 import { ListGroup } from "react-bootstrap";
 import moment from "moment-timezone";
@@ -12,7 +12,7 @@ export default function Home() {
 
     const dateRange = helper.getDateRange();
 
-    let interval;
+    const interval = useRef();
 
     const getListings = async () => {
         await fetch(`${process.env.REACT_APP_API_URL}/api/listings/getRecentListings/${date}`)
@@ -23,38 +23,32 @@ export default function Home() {
     };
 
     useEffect(() => {
+        document.title = "PowerPages Home"
         async function fetchData() {
             await getListings();
             setLoading(false);
         }
-        fetchData().then(setLoading(false));
-    },[]);
-
-    useEffect(() => {
-        interval = setInterval(getListings,30000);
-        return () => clearInterval(interval);
+        fetchData();
+        interval.current = setInterval(getListings,30000);
+        return () => clearInterval(interval.current);
     },[]);
 
     useEffect(() => {
         getListings();
         clearInterval(interval);
-        interval = setInterval(getListings,30000);
-        return () => clearInterval(interval);
+        interval.current = setInterval(getListings,30000);
+        return () => clearInterval(interval.current);
     },[date]);
 
-    useEffect(() => {
-        document.title = "PowerPages Home"
-    }, []);
-
-    if(loading) return ( <div>Loading...</div> )
+    if(loading || listings.length === 0) return ( <div>Loading...</div> )
 
     return (
         <>
             <h1>New Residential Sale - {listings.length} Records</h1><hr />
             <h4>Dates</h4>
             <ListGroup horizontal>
-                {dateRange.map(day => (
-                    <ListGroup.Item as="button" className={day == date && "bg-primary text-light"} onClick={() => setDate(day)}>
+                {dateRange.map((day,dindex) => (
+                    <ListGroup.Item as="button" className={day == date && "bg-primary text-light"} onClick={() => setDate(day)} key={`date_${dindex}`}>
                         {day}
                     </ListGroup.Item>
                 ))}

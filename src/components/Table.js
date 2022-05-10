@@ -2,23 +2,20 @@ import {
     Table as BSTable
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import moment from "moment-timezone";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowUp, faArrowDown, faArrowsUpDown } from "@fortawesome/free-solid-svg-icons";
 
-export default function Table({ header, subheader, variant, mapping, listings }) {
+export default function Table({ header, variant, mapping, listings }) {
 
-    const titles = [];
-    const masks = [];
-    const sorts = [];
-    const links = [];
-    const timestamps = [];
-    const prices = [];
-    const numbers = [];
+    const [sortCol, setSortCol] = useState(999);
+    const [sortAsc, setSortAsc] = useState(true);
+    const [sorted, setSorted] = useState(listings);
 
     const getMaskedListing = (listing) => {
         const final = [];
-        mapping.forEach((element,index) => {
-            titles.push(element["title"]);
+        mapping.forEach((element) => {
             const mask = element["mask"];
             if(mask === null) {
                 final.push(null);
@@ -27,7 +24,7 @@ export default function Table({ header, subheader, variant, mapping, listings })
             const isArray = Array.isArray(mask);
             const type = typeof mask;
             let value = null;
-            if(type != "string") {
+            if(!isArray && type !== "string") {
                 final.push(null);
                 return;
             }
@@ -36,67 +33,80 @@ export default function Table({ header, subheader, variant, mapping, listings })
                 mask.forEach(field => {
                     temp.push(listing[field]);
                 });
-                value = temp.join(mapping[index]['delimiter']);
+                value = temp;
             } else {
                 value = listing[mask];
             }
+            final.push(formatCol(listing, element, value, isArray));
         });
         return final;
     }
 
-    // mapping.forEach(m => {
-    //     titles.push(m["title"]);
-    //     masks.push(m["mask"]);
-    //     sorts.push("sortable" in m && m["sortable"] ? true : false);
-    //     links.push("link" in m ? m["link"] : null);
-    //     timestamps.push("timestamp" in m && m["timestamp"] ? true : false);
-    //     prices.push("price" in m && m["price"] ? true : false);
-    //     numbers.push("number" in m && m["number"] ? true : false);
-    // });
+    const formatCol = (listing, element, value, isArray) => {
+        if("link" in element) {
+            if(isArray) {
+                return <Link to={`${element["link"]["path"]}${listing[element["link"]["mask"]]}`}>{value.join(element["delimiter"])}</Link>  
+            }
+            return <Link to={`${element["link"]["path"]}${listing[element["link"]["mask"]]}`}>{value}</Link>  
+        }
+        if("timestamp" in element) {
+            return moment(value).format("MM-DD h:mm:ss a")
+        }
+        if("price" in element) {
+            if(isArray) {
+                return value.map(v => {
+                    return v.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 })
+                }).join(element["delimiter"]);
+            }
+            return value.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 });
+        }
+        if("number" in element) {
+            if(isArray) {
+                return value.map(v => {
+                    return v.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })
+                }).join(element["delimiter"]);
+            }
+            return value.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+        }
+        if(isArray) {
+            return value.join(element["delimiter"]);
+        }
+        return value;
+    }
 
     return (
         <BSTable size="sm" bordered hover>
             <thead>
                 <tr>
-                    <td colSpan={titles.length} className={`bg-${variant} text-light text-center`}>{header}</td>
+                    <td colSpan={mapping.length} className={`bg-${variant} text-light text-center`}>{header}</td>
                 </tr>
                 <tr style={{backgroundColor: '#F0F0F0'}}>
-                    {titles && titles.map((t,tindex) => (
-                        <td className="fw-normal" key={tindex}>{t}</td>
+                    {mapping.map((t,tindex) => (
+                        <td className="fw-normal" key={tindex}>
+                            <span>
+                                {t["title"]}
+                                {t["sortable"] && 
+                                    <FontAwesomeIcon 
+                                    icon={faArrowsUpDown} 
+                                    className={`mx-2 ${sortCol === tindex ? 'text-primary' : ''}`} 
+                                    onClick={() => setSortCol(tindex)}/>
+                                }
+                            </span>
+                        </td>
                     ))}
                 </tr>
             </thead>
             <tbody>
-                {listings && listings.map((v,vindex) => {
+                {sorted && sorted.map((v,vindex) => {
                     const masked = getMaskedListing(v);
                     return (<tr style={{backgroundColor: '#FFFFFF'}} key={vindex}>
                         {masked.map((col,index) => (
                             <td className={(index === 0 && col===null) ? "text-center" : ""} key={`${vindex}_${index}`}>
                                 {index === 0 && col === null 
                                 ? 
-                                <input type="checkbox"/> 
+                                <input type="checkbox" /> 
                                 : 
-                                (links[index] 
-                                ? 
-                                <Link to={`${links[index]["path"]}${v[links[index]["mask"]]}`}>{col}</Link> 
-                                : 
-                                (timestamps[index]
-                                ?
-                                moment(col).format("MM-DD h:mm:ss a")
-                                :
-                                (prices[index]
-                                ?
-                                col.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 })
-                                :
-                                (numbers[index]
-                                ?
-                                col.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })
-                                :
                                 col
-                                )
-                                )
-                                )
-                                )
                                 }
                             </td>
                         ))}

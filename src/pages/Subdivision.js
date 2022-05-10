@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams, Link } from "react-router-dom";
 import {
     Row,
@@ -14,6 +14,8 @@ export default function Subdivision() {
     const [loading, setLoading] = useState(true);
     const [listings, setListings] = useState([]);
 
+    const interval = useRef();
+
     const getListingsBySubdivision = async () => {
         await fetch(`${process.env.REACT_APP_API_URL}/api/listings/getListingsBySubdivision/${name}`)
         .then(res => res.json())
@@ -23,20 +25,16 @@ export default function Subdivision() {
     };
 
     useEffect(() => {
+        document.title = "PowerPages Subdivision"
         async function fetchData() {
             await getListingsBySubdivision();
             setLoading(false);
         }
-        fetchData().then(setLoading(false));
+        fetchData();
+        interval.current = setInterval(getListingsBySubdivision,30000);
+        return () => clearInterval(interval.current);
     },[]);
 
-    useEffect(() => {
-        setInterval(getListingsBySubdivision,30000);
-    },[]);
-
-    useEffect(() => {
-        document.title = "PowerPages Subdivision"
-    }, []);
 
     if(loading) return ( <div>Loading...</div> )
 

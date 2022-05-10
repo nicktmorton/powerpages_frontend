@@ -9,7 +9,6 @@ const mapping = [
     {
         "title": "Update",
         "mask": "update",
-        "sortable": true,
         "timestamp": true
     },
     {
@@ -41,16 +40,22 @@ const mapping = [
     {
         "title": "Orig / Current $",
         "mask": [ "originalPrice", "listPrice" ],
+        "delimiter": " / ",
         "price": true
     },
     {
-        "title": "City / ISD",
-        "mask": [ "city", "schoolDistrict" ],
-        "delimiter": " / "
+        "title": "City",
+        "mask": "city",
+        "sortable": true
+    },
+    {
+        "title": "ISD",
+        "mask": "schoolDistrict"
     },
     {
         "title": "Zip",
-        "mask": "zip"
+        "mask": "zip",
+        "sortable": true
     },
     {
         "title": "SqFT.",
@@ -70,17 +75,21 @@ const mapping = [
 
 export default function SaleTable({ listings }) {
 
+    const [loading, setLoading] = useState(true);
     const [filtered, setFiltered] = useState([]);
 
     const filterListings = () => {
-        const watched = [];
+        //const watched = [];
         const temp = listings.filter(listing => listing["transactionType"] === "For Sale");
         setFiltered(temp);
     }
 
     useEffect(() => {
+        setLoading(false);
         filterListings();
-    },[listings]);
+    },[]);
+
+    if(loading || filtered.length === 0) return (<div>Loading...</div>)
 
     return (
         <>
