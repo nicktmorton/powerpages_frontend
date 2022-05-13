@@ -28,6 +28,7 @@ const mapping = [
         "title": "Subdivision",
         "mask": "subdivision",
         "sortable": true,
+        "sort_type": "link",
         "link": {
             "path": "/subdivision/",
             "mask": "subdivision"
@@ -38,15 +39,16 @@ const mapping = [
         "mask": "listingId"
     },
     {
-        "title": "Orig / Current $",
-        "mask": [ "originalPrice", "listPrice" ],
+        "title": "Current / Orig $",
+        "mask": [ "listPrice", "originalPrice" ],
         "delimiter": " / ",
         "price": true
     },
     {
         "title": "City",
         "mask": "city",
-        "sortable": true
+        "sortable": true,
+        "sort_type": "string"
     },
     {
         "title": "ISD",
@@ -55,7 +57,8 @@ const mapping = [
     {
         "title": "Zip",
         "mask": "zip",
-        "sortable": true
+        "sortable": true,
+        "sort_type": "string"
     },
     {
         "title": "SqFT.",
@@ -78,16 +81,15 @@ export default function SaleTable({ listings }) {
     const [loading, setLoading] = useState(true);
     const [filtered, setFiltered] = useState([]);
 
-    const filterListings = () => {
-        //const watched = [];
-        const temp = listings.filter(listing => listing["transactionType"] === "For Sale");
-        setFiltered(temp);
-    }
-
     useEffect(() => {
-        setLoading(false);
+        const filterListings = async () => {
+            //const watched = [];
+            const temp = await listings.filter(listing => listing["transactionType"] === "For Sale");
+            setFiltered(temp);
+        }
         filterListings();
-    },[]);
+        setLoading(false);
+    },[listings]);
 
     if(loading || filtered.length === 0) return (<div>Loading...</div>)
 

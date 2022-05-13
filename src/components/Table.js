@@ -9,9 +9,11 @@ import { faArrowUp, faArrowDown, faArrowsUpDown } from "@fortawesome/free-solid-
 
 export default function Table({ header, variant, mapping, listings }) {
 
+    const [loading, setLoading] = useState(true);
     const [sortCol, setSortCol] = useState(999);
     const [sortAsc, setSortAsc] = useState(true);
-    const [sorted, setSorted] = useState(listings);
+    const [sorted, setSorted] = useState([]);
+    const [masked, setMasked] = useState([]);
 
     const getMaskedListing = (listing) => {
         const final = [];
@@ -74,6 +76,42 @@ export default function Table({ header, variant, mapping, listings }) {
         return value;
     }
 
+    const handleSortChange = (index,type) => {
+        if(index === sortCol) {
+            const curr = sortAsc;
+            setSortAsc(!curr);
+            setSorted(sorted.reverse());
+        } else {
+            setSortCol(index);
+            setSortAsc(true);
+            sortListings(index,type,true);
+        }
+    }
+
+    const sortListings = (col,type,dir) => {
+        let temp = masked;
+        //const key = Object.keys(masked[0])[col]["title"];
+        const key = col;
+        const compareStringsInts = (x,y) => { return x.toLowerCase().localeCompare(y.toLowerCase()) } 
+        const compareLinks = (x,y) => { return x["props"]["children"].toLowerCase().localeCompare(y["props"]["children"].toLowerCase()) } 
+        //const compareInts = (x,y) => { return x > y } 
+        if(dir) {
+            temp.sort((a,b) => type == "link" ? compareLinks(a[key],b[key]) : compareStringsInts(a[key],b[key]));
+        } else {
+            temp.sort((a,b) => type == "link" ? compareLinks(b[key],a[key]) : compareStringsInts(b[key],a[key]));
+        }
+        setSorted(temp);
+    }
+
+    useEffect(() => {
+        const temp = listings.map(l => getMaskedListing(l));
+        setMasked(temp);
+        setSorted(temp);
+        setLoading(false);
+    },[]);
+
+    if(loading) return (<div>Loading...</div>)
+
     return (
         <BSTable size="sm" bordered hover>
             <thead>
@@ -87,9 +125,9 @@ export default function Table({ header, variant, mapping, listings }) {
                                 {t["title"]}
                                 {t["sortable"] && 
                                     <FontAwesomeIcon 
-                                    icon={faArrowsUpDown} 
+                                    icon={sortCol === tindex ? (sortAsc ? faArrowUp : faArrowDown) : faArrowsUpDown} 
                                     className={`mx-2 ${sortCol === tindex ? 'text-primary' : ''}`} 
-                                    onClick={() => setSortCol(tindex)}/>
+                                    onClick={() => handleSortChange(tindex,t["sort_type"])}/>
                                 }
                             </span>
                         </td>
@@ -98,9 +136,8 @@ export default function Table({ header, variant, mapping, listings }) {
             </thead>
             <tbody>
                 {sorted && sorted.map((v,vindex) => {
-                    const masked = getMaskedListing(v);
                     return (<tr style={{backgroundColor: '#FFFFFF'}} key={vindex}>
-                        {masked.map((col,index) => (
+                        {v.map((col,index) => (
                             <td className={(index === 0 && col===null) ? "text-center" : ""} key={`${vindex}_${index}`}>
                                 {index === 0 && col === null 
                                 ? 

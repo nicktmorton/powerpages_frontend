@@ -15,10 +15,12 @@ export default function Home() {
     const interval = useRef();
 
     const getListings = async () => {
+        setLoading(true);
         await fetch(`${process.env.REACT_APP_API_URL}/api/listings/getRecentListings/${date}`)
         .then(res => res.json())
         .then(data => {
             setListings(data);
+            setLoading(false);
         });
     };
 
@@ -26,21 +28,21 @@ export default function Home() {
         document.title = "PowerPages Home"
         async function fetchData() {
             await getListings();
-            setLoading(false);
         }
         fetchData();
-        interval.current = setInterval(getListings,30000);
-        return () => clearInterval(interval.current);
+        //interval.current = setInterval(fetchData,10000);
+        //return () => clearInterval(interval.current);
     },[]);
 
     useEffect(() => {
-        getListings();
-        clearInterval(interval);
-        interval.current = setInterval(getListings,30000);
-        return () => clearInterval(interval.current);
+        async function fetchData() {
+            await getListings();
+        }
+        fetchData();
+        //clearInterval(interval);
+        //interval.current = setInterval(fetchData,10000);
+        //return () => clearInterval(interval.current);
     },[date]);
-
-    if(loading || listings.length === 0) return ( <div>Loading...</div> )
 
     return (
         <>
@@ -53,9 +55,11 @@ export default function Home() {
                     </ListGroup.Item>
                 ))}
             </ListGroup>
+            {!loading && (
             <div className="my-4">
                 <SaleTable listings={listings}/>
             </div>
+            )}
             {/* <br />
             <div className="my-4">
                 <LeaseTable listings={listings}/>
