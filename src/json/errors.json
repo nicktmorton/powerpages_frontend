@@ -1,3 +1,4 @@
 {
-    "101": "AuthError: Invalid Code"
+    "101": "AuthError: Invalid Code",
+    "102": "AuthError: Passwords do not match"
 }

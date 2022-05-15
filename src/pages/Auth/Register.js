@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Card, Form, Container, Row, Col } from "react-bootstrap";
 
 import Code from "../../components/auth/Forms/Code";
+import Info from "../../components/auth/Forms/Info";
 
 export default function Register() {
 
@@ -18,6 +19,7 @@ export default function Register() {
                         <Card.Body>
                             <Form>
                                 {step == 0 && <Code setStep={() => setStep(1)}/>}
+                                {step == 1 && <Info />}
                             </Form>
                         </Card.Body>
                     </Card>
