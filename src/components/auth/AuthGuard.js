@@ -2,33 +2,35 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import Register from "../../pages/Auth/Register";
+import Login from "../../pages/Auth/Login";
 
 export default function AuthGuard({ children }) {
 
-    const [loading, setLoading] = useState(true);
+    //const [loading, setLoading] = useState(true);
     const [authorized, setAuthorized] = useState(false);
-    const [page, setPage] = useState("register");
+    const [page, setPage] = useState("login");
 
     const dispatch = useDispatch();
-    const {user} = useSelector((state) => state.auth);
+    const {user, isLoading, isSuccess} = useSelector((state) => state.auth);
 
     useEffect(() => {
-        setLoading(false);
-    },[]);
-
-    useEffect(() => {
-        if(!loading && user) {
-            setAuthorized(true);
+        if(!isLoading) {
+            if(user && user.token){
+                setAuthorized(true);
+            } else {
+                if(authorized) {
+                    setAuthorized(false);
+                }
+            }
         }
-    },[user,loading]);
-
-    if(loading) return (<div>Loading...</div>)
+    },[user,isLoading,isSuccess,dispatch]);
 
     if(authorized) return children
     
     return (
         <>
-            {page == "register" && <Register />}
+            {page == "register" && <Register setPage={() => setPage("login")}/>}
+            {page == "login" && <Login setPage={() => setPage("register")}/>}
         </>
     )
 

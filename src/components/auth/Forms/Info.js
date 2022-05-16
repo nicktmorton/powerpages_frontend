@@ -5,7 +5,7 @@ import { register, reset } from "../../../features/auth/authSlice";
 
 import errorCodes from "../../../json/errors.json";
 
-export default function Info({ setStep }) {
+export default function Info() {
 
     const [info, setInfo] = useState({
         email: '',
@@ -14,10 +14,11 @@ export default function Info({ setStep }) {
         confirm: ''
     });
     const [error, setError] = useState(0);
+    const [serverError, setServerError] = useState("");
     const [creating, setCreating] = useState(false);
 
     const dispatch = useDispatch();
-    const {user, isLoading, isError, isSuccess, message} = useSelector((state) => state.auth);
+    const {user, isError, message} = useSelector((state) => state.auth);
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -27,24 +28,32 @@ export default function Info({ setStep }) {
 
     const registerUser = () => {
         setCreating(true);
+
+        if(!info.email || !info.username || !info.password || !info.confirm) {
+            setError(100);
+            setCreating(false);
+            return;
+        }
         if(info.password != info.confirm) {
             setError(102);
-        } else {
-            const userData = {
-                email: info.email,
-                username: info.username,
-                password: info.password
-            };
-            dispatch(register(userData))
-        }
+            setCreating(false);
+            return;
+        } 
+        const userData = {
+            email: info.email,
+            username: info.username,
+            password: info.password
+        };
+        dispatch(register(userData))
+        setCreating(false);
     }
 
     useEffect(() => {
         if(isError) {
-            setError(message);
+            setServerError(message);
         }
         dispatch(reset());
-    },[user, isError, isSuccess, message, dispatch]);
+    },[user, isError, message]);
 
     return (
         <>
@@ -75,7 +84,7 @@ export default function Info({ setStep }) {
             <Button variant="primary" size="sm" className="mt-3" disabled={creating} onClick={() => registerUser()}>
                 {creating ? <Spinner variant="light" /> : "Submit"}
             </Button>
-            {error > 0 && <small className="text-danger mt-3 d-block">{errorCodes[error]}</small>}
+            {(error > 0 || serverError) && <small className="text-danger mt-3 d-block">{serverError ? serverError : errorCodes[error]}</small>}
         </>
     )
 
