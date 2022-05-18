@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
+import { useSelector } from "react-redux";
 import SaleTable from "../components/tables/Sale";
-import { ListGroup } from "react-bootstrap";
+import { ListGroup, Card } from "react-bootstrap";
 import moment from "moment-timezone";
 import helper from "../helper";
 
@@ -14,9 +15,15 @@ export default function Home() {
 
     const interval = useRef();
 
+    const {user} = useSelector((state) => state.auth);
+
     const getListings = async () => {
         setLoading(true);
-        await fetch(`${process.env.REACT_APP_API_URL}/api/listings/getRecentListings/${date}`)
+        await fetch(`${process.env.REACT_APP_API_URL}/api/listings/getRecentListings/${date}`,{
+            headers: {
+                "Authorization": `Bearer ${user.token}`
+            }
+        })
         .then(res => res.json())
         .then(data => {
             setListings(data);
