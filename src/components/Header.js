@@ -14,6 +14,7 @@ export default function Header() {
     const handleLogout = () => {
         dispatch(logout());
         dispatch(reset());
+        window.location.reload(false);
     }
 
     return (
@@ -37,8 +38,11 @@ export default function Header() {
                         <Nav.Link href="/status">Status Changes</Nav.Link>
                     </Nav.Item>
                 </>
-                <div>
-                    <Button variant="link" onClick={handleLogout}>
+                <div className="float-end">
+                    <Nav.Item className="float-start">
+                        <Nav.Link href="/account">Account</Nav.Link>
+                    </Nav.Item>
+                    <Button className="float-end" variant="link" onClick={handleLogout}>
                         <FontAwesomeIcon icon={faSignOut} />
                         <span className="mx-2">Logout</span>
                     </Button>

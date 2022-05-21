@@ -4,6 +4,7 @@ import SaleTable from "../components/tables/Sale";
 import { ListGroup, Card } from "react-bootstrap";
 import moment from "moment-timezone";
 import helper from "../helper";
+import { useInterval } from "../utils/interval";
 
 export default function Home() {
 
@@ -12,8 +13,6 @@ export default function Home() {
     const [date, setDate] = useState(moment().tz('America/Chicago').format('YYYY-MM-DD'));
 
     const dateRange = helper.getDateRange();
-
-    const interval = useRef();
 
     const {user} = useSelector((state) => state.auth);
 

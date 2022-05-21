@@ -9,7 +9,7 @@ const register = async (userData) => {
     })
     const status = response.status;
     const result = await response.json();
-    if(status != 200) {
+    if(status != 201) {
         throw new Error(result.message);
     }
     if(result) {
@@ -38,6 +38,23 @@ const login = async (userData) => {
     return result;
 };
 
+const refresh = async (userData) => {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/me`,{
+        headers: {
+            "Authorization": `Bearer ${userData.token}`
+        }
+    });
+    const status = response.status;
+    const result = await response.json();
+    if(status != 200) {
+        throw new Error(result.message);
+    }
+    if(result) {
+        localStorage.setItem('user',JSON.stringify(result));
+    }
+    return result;
+};
+
 const logout = async () => {
     localStorage.removeItem('user');
 }
@@ -45,6 +62,7 @@ const logout = async () => {
 const authService = {
     register,
     login,
+    refresh,
     logout
 };
 

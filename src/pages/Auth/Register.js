@@ -1,12 +1,8 @@
-import { useEffect, useState } from "react";
 import { Card, Form, Container, Row, Col, Button } from "react-bootstrap";
 
-import Code from "../../components/auth/Forms/Code";
 import Info from "../../components/auth/Forms/Info";
 
 export default function Register({ setPage }) {
-
-    const [step, setStep] = useState(0);
 
     return (
         <Container>
@@ -18,8 +14,7 @@ export default function Register({ setPage }) {
                         </Card.Header>
                         <Card.Body>
                             <Form>
-                                {step == 0 && <Code setStep={() => setStep(1)}/>}
-                                {step == 1 && <Info />}
+                                <Info />
                             </Form>
                             <Button variant="link" size="sm" className="mt-3" onClick={setPage}>Login</Button>
                         </Card.Body>

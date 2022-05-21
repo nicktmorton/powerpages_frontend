@@ -26,11 +26,21 @@ export default function Info() {
         setInfo(prev => ({...prev, [name]: value}));
     }
 
+    const validateEmail = (email) => {
+        const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        return email.match(validRegex);
+    }
+
     const registerUser = () => {
         setCreating(true);
 
         if(!info.email || !info.username || !info.password || !info.confirm) {
             setError(100);
+            setCreating(false);
+            return;
+        }
+        if(!validateEmail(info.email)) {
+            setError(101);
             setCreating(false);
             return;
         }
@@ -65,7 +75,7 @@ export default function Info() {
             </FormGroup>
             <FormGroup className="mt-3">
                 <FormLabel>
-                    Username
+                    Agent License #
                 </FormLabel>
                 <FormControl type="text" name="username" value={info.username} onChange={handleChange}/>
             </FormGroup>

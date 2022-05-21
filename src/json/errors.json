@@ -1,6 +1,6 @@
 {
     "100": "AuthError: Please fill in all fields",
-    "101": "AuthError: Invalid Code",
+    "101": "AuthError: Invalid email format",
     "102": "AuthError: Passwords do not match",
     "200": "AuthError: Invalid credentials"
 }
