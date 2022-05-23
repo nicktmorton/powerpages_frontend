@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Spinner } from "react-bootstrap";
 
 import Register from "../../pages/Auth/Register";
 import Login from "../../pages/Auth/Login";
@@ -7,7 +8,6 @@ import Account from "../../pages/Auth/Account";
 
 export default function AuthGuard({ children }) {
 
-    //const [loading, setLoading] = useState(true);
     const [authorized, setAuthorized] = useState(false);
     const [verified, setVerified] = useState(false);
     const [page, setPage] = useState("login");

@@ -108,7 +108,7 @@ export default function Table({ header, variant, mapping, listings }) {
         setMasked(temp);
         setSorted(temp);
         setLoading(false);
-    },[]);
+    },[listings]);
 
     if(loading) return (<div>Loading...</div>)
 

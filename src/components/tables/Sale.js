@@ -80,7 +80,7 @@ const mapping = [
 export default function SaleTable({ listings }) {
 
     const [loading, setLoading] = useState(true);
-    const [filtered, setFiltered] = useState([]);
+    const [fresh, setFresh] = useState(true);
     const [subset, setSubset] = useState([]);
     const [filters, setFilters] = useState({
         city: "",
@@ -93,18 +93,28 @@ export default function SaleTable({ listings }) {
         setFilters(prev => ({...prev, [name]: value}));
     }
 
-    const filterListings = () => {
+    const filterListings = async () => {
         setLoading(true);
-        Promise.all(filtered.filter(listing => {
-            const good = true;
+        setFresh(false);
+        await Promise.all(listings.filter(listing => {
             if (filters["city"] != "") {
-                console.log("Filter: ", listing["city"] === filters["city"]);
-                return listing["city"] === filters["city"];
+                if(!(listing["city"] === filters["city"])){
+                    return false;
+                }
+            }
+            if(filters["zip"] != "") {
+                if(!(listing["zip"] === filters["zip"])){
+                    return false;
+                }
             }
             return true;
         }))
         .then(res => {
-            setSubset(res);
+            if(res) {
+                setSubset(res);
+            } else {
+                setSubset([]);
+            }
             setLoading(false);
         });
     }
@@ -115,21 +125,16 @@ export default function SaleTable({ listings }) {
             city: "",
             zip: ""
         });
-        Promise.all(setSubset([]))
-        .then(() => setLoading(false));
+        setSubset([]);
+        setFresh(true);
+        setLoading(false);
     }
 
     useEffect(() => {
-        const filterListings = async () => {
-            //const watched = [];
-            const temp = await listings.filter(listing => listing["transactionType"] === "For Sale");
-            setFiltered(temp);
-        }
-        filterListings();
         setLoading(false);
-    },[listings]);
+    },[]);
 
-    if(loading || filtered.length === 0) return (<div>Loading...</div>)
+    if(loading) return (<div>Loading...</div>)
 
     return (
         <>
@@ -161,7 +166,7 @@ export default function SaleTable({ listings }) {
             header="Powerpage NEW RESIDENTIAL SINGLE FAMILY Listings for SALE"
             variant="primary"
             mapping={mapping}
-            listings={subset.length > 0 ? subset : filtered}
+            listings={fresh === true ? (listings || []) : subset}
             />
         </>
     )

@@ -1,7 +1,7 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import SaleTable from "../components/tables/Sale";
-import { ListGroup, Card } from "react-bootstrap";
+import { ListGroup } from "react-bootstrap";
 import moment from "moment-timezone";
 import helper from "../helper";
 import { useInterval } from "../utils/interval";
@@ -16,9 +16,8 @@ export default function Home() {
 
     const {user} = useSelector((state) => state.auth);
 
-    const getListings = async () => {
-        setLoading(true);
-        await fetch(`${process.env.REACT_APP_API_URL}/api/listings/getRecentListings/${date}`,{
+    const getListings = async (listDate) => {
+        await fetch(`${process.env.REACT_APP_API_URL}/api/listings/getRecentListings/${listDate}`,{
             headers: {
                 "Authorization": `Bearer ${user.token}`
             }
@@ -26,14 +25,14 @@ export default function Home() {
         .then(res => res.json())
         .then(data => {
             setListings(data);
-            setLoading(false);
         });
     };
 
     useEffect(() => {
-        document.title = "PowerPages Home"
+        document.title = "PowerPages Home";
         async function fetchData() {
-            await getListings();
+            await getListings(date);
+            setLoading(false);
         }
         fetchData();
         //interval.current = setInterval(fetchData,10000);
@@ -42,9 +41,13 @@ export default function Home() {
 
     useEffect(() => {
         async function fetchData() {
-            await getListings();
+            setLoading(true);
+            await getListings(date);
+            setLoading(false);
         }
-        fetchData();
+        if(!loading) {
+            fetchData();
+        }
         //clearInterval(interval);
         //interval.current = setInterval(fetchData,10000);
         //return () => clearInterval(interval.current);
@@ -62,22 +65,10 @@ export default function Home() {
                 ))}
             </ListGroup>
             {!loading && (
-            <div className="my-4">
-                <SaleTable listings={listings}/>
-            </div>
+                <div className="my-4">
+                    <SaleTable listings={listings}/>
+                </div>
             )}
-            {/* <br />
-            <div className="my-4">
-                <LeaseTable listings={listings}/>
-            </div>
-            <br />
-            <div className="my-4">
-                <PriceTable listings={listings}/>
-            </div>
-            <br />
-            <div className="my-4">
-                <StatusTable listings={listings}/>
-            </div> */}
         </>
     )
 }

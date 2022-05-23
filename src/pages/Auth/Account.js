@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Card, Form, Container, Row, Col, Button, Table, Tab, Spinner } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,15 +7,22 @@ import { logout, reset, refresh } from "../../features/auth/authSlice";
 
 export default function Account() {
 
+    const [loading, setLoading] = useState(true);
     const [file, setFile] = useState(null);
-    const [codes, setCodes] = useState([]);
+    const [codes, setCodes] = useState(["","","",""]);
     const [saving, setSaving] = useState(false);
 
     const fileRef = useRef();
 
-    const {user} = useSelector((state) => state.auth);
+    const {user, isLoading} = useSelector((state) => state.auth);
 
     const dispatch = useDispatch();
+
+    const handleCodeChange = (index, value) => {
+        const newArr = [...codes];
+        newArr[index] = value;
+        setCodes(newArr);
+    }
 
     const handleFileChange = (event) => {
         setFile(event.target.files[0]);
@@ -49,15 +56,43 @@ export default function Account() {
 
     const saveClientCodes = async () => {
         setSaving(true);
-        await fetch(`${process.env.REACT_APP_API_URL}/api/user/updateClientCodes`,{
+        const formattedCodes = codes.map((c) => `${user.username}-${c}`);
+        await fetch(`${process.env.REACT_APP_API_URL}/api/user/saveClientCodes`,{
             method: 'post',
             headers: {
                 "Access-Control-Allow-Origin": "*",
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${user.token}`
             },
-            body: JSON.stringify(codes)
+            body: JSON.stringify({ codes: formattedCodes })
         }).then(setSaving(false));
     }
+
+    const getClientCodes = async () => {
+        await fetch(`${process.env.REACT_APP_API_URL}/api/user/getClientCodes`,{
+            headers: {
+                "Authorization": `Bearer ${user.token}`
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            const unformattedCodes = data.map((c) => c.replace(`${user.username}-`,''));
+            setCodes(unformattedCodes);
+        });
+    }
+
+    useEffect(() => {
+        async function fetchData() {
+            await getClientCodes();
+            setLoading(false);
+        }
+        fetchData();
+        if(!isLoading && user) {
+            dispatch(refresh({ token: user.token }));
+        }
+    },[]);
+
+    if(isLoading || loading) return <Spinner animation="border" variant="light" size="sm"/>
 
     return (
         <Container>
@@ -94,7 +129,7 @@ export default function Account() {
                                     </tr>
                                 </tbody>
                             </Table>
-                            {user.verified && (
+                            {user.verified === 1 && (
                                 <div className="mt-4">
                                     <h4>Client Login Codes</h4>
                                     <small className="text-danger my-2">I affirm and understand I will not supply my Primary agent login 
@@ -104,16 +139,28 @@ export default function Account() {
                                     <Table className="mt-4">
                                         <tbody>
                                             <tr>
-                                                <td>1) {`${user.username}-`}<input type="text" onChange={(event) => setCodes(prev => ([...prev, event.target.value]))}/></td>
+                                                <td>
+                                                    1) {`${user.username}-`}
+                                                    <input type="text" onChange={(event) => handleCodeChange(0,event.target.value)} value={codes[0]} />
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td>2) {`${user.username}-`}<input type="text" /></td>
+                                                <td>
+                                                    2) {`${user.username}-`}
+                                                    <input type="text" onChange={(event) => handleCodeChange(1,event.target.value)} value={codes[1]} />
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td>3) {`${user.username}-`}<input type="text" /></td>
+                                                <td>
+                                                    3) {`${user.username}-`}
+                                                    <input type="text" onChange={(event) => handleCodeChange(2,event.target.value)} value={codes[2]} />
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td>4) {`${user.username}-`}<input type="text" /></td>
+                                                <td>
+                                                    4) {`${user.username}-`}
+                                                    <input type="text" onChange={(event) => handleCodeChange(3,event.target.value)} value={codes[3]} />
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </Table>

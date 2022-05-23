@@ -8,7 +8,6 @@ const mapping = [
     {
         "title": "Update",
         "mask": "update",
-        "sortable": true,
         "timestamp": true
     },
     {
@@ -29,15 +28,16 @@ const mapping = [
         "mask": "listingId"
     },
     {
-        "title": "Orig / Current $",
-        "mask": [ "originalPrice", "listPrice" ],
+        "title": "Current / Orig $",
+        "mask": [ "listPrice", "originalPrice" ],
         "delimiter": " / ",
         "price": true
     },
     {
         "title": "City",
         "mask": "city",
-        "sortable": true
+        "sortable": true,
+        "sort_type": "string"
     },
     {
         "title": "ISD",
@@ -46,7 +46,8 @@ const mapping = [
     {
         "title": "Zip",
         "mask": "zip",
-        "sortable": true
+        "sortable": true,
+        "sort_type": "string"
     },
     {
         "title": "SqFT.",
