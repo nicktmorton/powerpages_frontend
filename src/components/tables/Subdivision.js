@@ -6,9 +6,8 @@ const mapping = [
         "mask": null
     },
     {
-        "title": "Time",
+        "title": "Update",
         "mask": "update",
-        "sortable": true,
         "timestamp": true
     },
     {
@@ -22,30 +21,33 @@ const mapping = [
     },
     {
         "title": "Subdivision",
-        "mask": "subdivision",
-        "sortable": true,
-        "link": {
-            "path": "/subdivision/",
-            "mask": "subdivision"
-        }
+        "mask": "subdivision"
     },
     {
         "title": "MLS #",
         "mask": "listingId"
     },
     {
-        "title": "Orig / Current $",
-        "mask": [ "originalPrice", "listPrice" ],
+        "title": "Current / Orig $",
+        "mask": [ "listPrice", "originalPrice" ],
+        "delimiter": " / ",
         "price": true
     },
     {
-        "title": "City / ISD",
-        "mask": [ "city", "schoolDistrict" ],
-        "delimiter": " / "
+        "title": "City",
+        "mask": "city",
+        "sortable": true,
+        "sort_type": "string"
+    },
+    {
+        "title": "ISD",
+        "mask": "schoolDistrict"
     },
     {
         "title": "Zip",
-        "mask": "zip"
+        "mask": "zip",
+        "sortable": true,
+        "sort_type": "string"
     },
     {
         "title": "SqFT.",

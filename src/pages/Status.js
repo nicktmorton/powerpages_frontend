@@ -1,13 +1,27 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import StatusTable from "../components/tables/Status";
+import { ListGroup } from "react-bootstrap";
+import moment from "moment-timezone";
+import helper from "../helper";
+import { useInterval } from "../utils/interval";
 
-export default function Home() {
+export default function Price() {
 
     const [loading, setLoading] = useState(true);
     const [listings, setListings] = useState([]);
+    const [date, setDate] = useState(moment().tz('America/Chicago').format('YYYY-MM-DD'));
 
-    const getListings = async () => {
-        await fetch(`${process.env.REACT_APP_API_URL}/api/listings/getRecentListingsStatus`)
+    const dateRange = helper.getDateRange();
+
+    const {user} = useSelector((state) => state.auth);
+
+    const getListings = async (listDate) => {
+        await fetch(`${process.env.REACT_APP_API_URL}/api/listings/getRecentListingsStatus/${listDate}`,{
+            headers: {
+                "Authorization": `Bearer ${user.token}`
+            }
+        })
         .then(res => res.json())
         .then(data => {
             setListings(data);
@@ -15,41 +29,46 @@ export default function Home() {
     };
 
     useEffect(() => {
+        document.title = "PowerPages Status Changes";
         async function fetchData() {
-            await getListings();
+            await getListings(date);
             setLoading(false);
         }
-        fetchData().then(setLoading(false));
+        fetchData();
+        //interval.current = setInterval(fetchData,10000);
+        //return () => clearInterval(interval.current);
     },[]);
 
     useEffect(() => {
-        setInterval(getListings,30000);
-    },[]);
-
-    useEffect(() => {
-        document.title = "PowerPages Status Changes"
-    }, []);
-
-    if(loading) return ( <div>Loading...</div> )
+        async function fetchData() {
+            setLoading(true);
+            await getListings(date);
+            setLoading(false);
+        }
+        if(!loading) {
+            fetchData();
+        }
+        //clearInterval(interval);
+        //interval.current = setInterval(fetchData,10000);
+        //return () => clearInterval(interval.current);
+    },[date]);
 
     return (
         <>
-            <h1>Status Changes - {listings.length} Records</h1>
-            <div className="my-4">
-                <StatusTable listings={listings}/>
-            </div>
-            {/* <br />
-            <div className="my-4">
-                <LeaseTable listings={listings}/>
-            </div>
-            <br />
-            <div className="my-4">
-                <PriceTable listings={listings}/>
-            </div>
-            <br />
-            <div className="my-4">
-                <StatusTable listings={listings}/>
-            </div> */}
+            <h1>Status Changes - {listings.length} Records</h1><hr />
+            <h4>Dates</h4>
+            <ListGroup horizontal>
+                {dateRange.map((day,dindex) => (
+                    <ListGroup.Item as="button" className={day == date && "bg-primary text-light"} onClick={() => setDate(day)} key={`date_${dindex}`}>
+                        {day}
+                    </ListGroup.Item>
+                ))}
+            </ListGroup>
+            {!loading && (
+                <div className="my-4">
+                    <StatusTable listings={listings}/>
+                </div>
+            )}
         </>
     )
 }

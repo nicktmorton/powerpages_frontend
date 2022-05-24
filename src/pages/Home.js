@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import SaleTable from "../components/tables/Sale";
 import { ListGroup } from "react-bootstrap";
 import moment from "moment-timezone";
 import helper from "../helper";
+import { useInterval } from "../utils/interval";
 
 export default function Home() {
 
@@ -12,10 +14,14 @@ export default function Home() {
 
     const dateRange = helper.getDateRange();
 
-    let interval;
+    const {user} = useSelector((state) => state.auth);
 
-    const getListings = async () => {
-        await fetch(`${process.env.REACT_APP_API_URL}/api/listings/getRecentListings/${date}`)
+    const getListings = async (listDate) => {
+        await fetch(`${process.env.REACT_APP_API_URL}/api/listings/getRecentListings/${listDate}`,{
+            headers: {
+                "Authorization": `Bearer ${user.token}`
+            }
+        })
         .then(res => res.json())
         .then(data => {
             setListings(data);
@@ -23,57 +29,46 @@ export default function Home() {
     };
 
     useEffect(() => {
+        document.title = "PowerPages Home";
         async function fetchData() {
-            await getListings();
+            await getListings(date);
             setLoading(false);
         }
-        fetchData().then(setLoading(false));
+        fetchData();
+        //interval.current = setInterval(fetchData,10000);
+        //return () => clearInterval(interval.current);
     },[]);
 
     useEffect(() => {
-        interval = setInterval(getListings,30000);
-        return () => clearInterval(interval);
-    },[]);
-
-    useEffect(() => {
-        getListings();
-        clearInterval(interval);
-        interval = setInterval(getListings,30000);
-        return () => clearInterval(interval);
+        async function fetchData() {
+            setLoading(true);
+            await getListings(date);
+            setLoading(false);
+        }
+        if(!loading) {
+            fetchData();
+        }
+        //clearInterval(interval);
+        //interval.current = setInterval(fetchData,10000);
+        //return () => clearInterval(interval.current);
     },[date]);
-
-    useEffect(() => {
-        document.title = "PowerPages Home"
-    }, []);
-
-    if(loading) return ( <div>Loading...</div> )
 
     return (
         <>
             <h1>New Residential Sale - {listings.length} Records</h1><hr />
             <h4>Dates</h4>
             <ListGroup horizontal>
-                {dateRange.map(day => (
-                    <ListGroup.Item as="button" className={day == date && "bg-primary text-light"} onClick={() => setDate(day)}>
+                {dateRange.map((day,dindex) => (
+                    <ListGroup.Item as="button" className={day == date && "bg-primary text-light"} onClick={() => setDate(day)} key={`date_${dindex}`}>
                         {day}
                     </ListGroup.Item>
                 ))}
             </ListGroup>
-            <div className="my-4">
-                <SaleTable listings={listings}/>
-            </div>
-            {/* <br />
-            <div className="my-4">
-                <LeaseTable listings={listings}/>
-            </div>
-            <br />
-            <div className="my-4">
-                <PriceTable listings={listings}/>
-            </div>
-            <br />
-            <div className="my-4">
-                <StatusTable listings={listings}/>
-            </div> */}
+            {!loading && (
+                <div className="my-4">
+                    <SaleTable listings={listings}/>
+                </div>
+            )}
         </>
     )
 }

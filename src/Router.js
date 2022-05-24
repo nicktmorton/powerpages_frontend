@@ -7,6 +7,8 @@ import Status from "./pages/Status";
 import Listing from "./pages/Listing";
 import Subdivision from "./pages/Subdivision";
 
+import Account from './pages/Auth/Account';
+
 import Header from './components/Header';
 
 export default function Router() {
@@ -43,6 +45,10 @@ export default function Router() {
                     <Route 
                     path="/subdivision/:name"
                     element={<Subdivision />}
+                    />
+                    <Route 
+                    path="/account"
+                    element={<Account />}
                     />
                 </Routes>
             </div>
