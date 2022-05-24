@@ -28,7 +28,9 @@ export default function AuthGuard({ children }) {
         }
     },[user,isLoading,isSuccess,dispatch]);
 
-    if(authorized && verified) return children
+    if(authorized && user.level > 2) return children;
+
+    if(authorized && verified) return children;
     
     if(authorized && !verified) {
         return (

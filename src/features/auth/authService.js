@@ -19,7 +19,16 @@ const register = async (userData) => {
 };
 
 const login = async (userData) => {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/login`,{
+    if((userData["type"] === 1 && !userData["code"]) && (userData["type"] === 2 && !(userData["email"] && userData["password"]))) {
+        throw new Error("AuthError: Please fill in all fields");
+    }
+    let api_url;
+    if(userData["code"]) {
+        api_url = process.env.REACT_APP_API_URL + "/api/auth/loginWithCode";
+    } else {
+        api_url = process.env.REACT_APP_API_URL + "/api/auth/login";
+    }
+    const response = await fetch(api_url,{
         method: 'post',
         headers: {
             "Access-Control-Allow-Origin": "*",

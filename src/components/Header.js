@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Nav, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOut } from "@fortawesome/free-solid-svg-icons";
@@ -8,6 +9,8 @@ import { logout, reset } from "../features/auth/authSlice";
 export default function Header() {
 
     const [active, setActive] = useState("");
+
+    const {user} = useSelector((state) => state.auth);
 
     const dispatch = useDispatch();
 
@@ -39,9 +42,11 @@ export default function Header() {
                     </Nav.Item>
                 </>
                 <div className="float-end">
-                    <Nav.Item className="float-start">
-                        <Nav.Link href="/account">Account</Nav.Link>
-                    </Nav.Item>
+                    {user.level === 2 && (
+                        <Nav.Item className="float-start">
+                            <Nav.Link href="/account">Account</Nav.Link>
+                        </Nav.Item>
+                    )}
                     <Button className="float-end" variant="link" onClick={handleLogout}>
                         <FontAwesomeIcon icon={faSignOut} />
                         <span className="mx-2">Logout</span>

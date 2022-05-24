@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { FormGroup, FormLabel, FormControl, Button, Spinner } from "react-bootstrap";
+import { Form, FormGroup, FormLabel, FormControl, Button, Spinner } from "react-bootstrap";
 import { login, reset } from "../../../features/auth/authSlice";
 
 import errorCodes from "../../../json/errors.json";
@@ -9,8 +9,10 @@ export default function Credentials({ setStep }) {
 
     const [info, setInfo] = useState({
         email: '',
-        password: ''
+        password: '',
+        code: ''
     });
+    const [type, setType] = useState("code");
     const [error, setError] = useState(0);
     const [serverError, setServerError] = useState("");
     const [loggingIn, setLoggingIn] = useState(false);
@@ -26,16 +28,29 @@ export default function Credentials({ setStep }) {
 
     const loginUser = () => {
         setLoggingIn(true);
-
-        if(!info.email || !info.password) {
-            setError(100);
-            setLoggingIn(false);
-            return;
+        let userData;
+        if(type === "admin") {
+            if(!info.email || !info.password) {
+                setError(100);
+                setLoggingIn(false);
+                return;
+            }
+            userData = {
+                email: info.email,
+                password: info.password,
+                type: 1
+            };
+        } else {
+            if(!info.code) {
+                setError(100);
+                setLoggingIn(false);
+                return;
+            }
+            userData = {
+                code: info.code,
+                type: 2
+            };
         }
-        const userData = {
-            email: info.email,
-            password: info.password
-        };
         dispatch(login(userData));
         setLoggingIn(false);
     }
@@ -49,18 +64,52 @@ export default function Credentials({ setStep }) {
 
     return (
         <>
-            <FormGroup>
-                <FormLabel>
-                    Email
-                </FormLabel>
-                <FormControl type="text" name="email" value={info.email} onChange={handleChange} autoComplete="new-password"/>
-            </FormGroup>
-            <FormGroup className="mt-3">
-                <FormLabel>
-                    Password
-                </FormLabel>
-                <FormControl type="password" name="password" value={info.password} onChange={handleChange} autoComplete="new-password"/>
-            </FormGroup>
+            <div key="login-radios" className="mb-3">
+                <Form.Check
+                inline
+                label="Validation Code"
+                name="loginradiogroup"
+                type="radio"
+                id="login-radio-code"
+                checked={type === "code"}
+                onChange={() => setType("code")}
+                />
+                <Form.Check
+                inline
+                label="Admin Credentials"
+                name="loginradiogroup"
+                type="radio"
+                id="login-radio-admin"
+                checked={type === "admin"}
+                onChange={() => setType("admin")}
+                />
+            </div>
+            {type === "admin" && (
+                <>
+                    <FormGroup>
+                        <FormLabel>
+                            Email
+                        </FormLabel>
+                        <FormControl type="text" name="email" value={info.email || ''} onChange={handleChange}/>
+                    </FormGroup>
+                    <FormGroup className="mt-3">
+                        <FormLabel>
+                            Password
+                        </FormLabel>
+                        <FormControl type="password" name="password" value={info.password || ''} onChange={handleChange}/>
+                    </FormGroup>
+                </>
+            )}
+            {type === "code" && (
+                <>
+                    <FormGroup>
+                        <FormLabel>
+                            Validation Code
+                        </FormLabel>
+                        <FormControl type="text" name="code" value={info.code || ''} onChange={handleChange}/>
+                    </FormGroup>
+                </>
+            )}
             <Button variant="primary" size="sm" className="mt-3" disabled={loggingIn} onClick={() => loginUser()}>
                 {loggingIn ? <Spinner variant="light" /> : "Submit"}
             </Button>
