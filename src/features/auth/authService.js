@@ -48,9 +48,10 @@ const login = async (userData) => {
 };
 
 const refresh = async (userData) => {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/me`,{
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/refresh`,{
         headers: {
             "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
             "Authorization": `Bearer ${userData.token}`
         }
     });
