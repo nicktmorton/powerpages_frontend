@@ -8,13 +8,9 @@ const mapping = [
         "mask": null
     },
     {
-        "title": "Update",
-        "mask": "update",
-        "timestamp": true
-    },
-    {
         "title": "List Date",
-        "mask": "listDate"
+        "mask": "init",
+        "timestamp": true
     },
     {
         "title": "Address",
@@ -98,12 +94,14 @@ export default function SaleTable({ listings }) {
         setFresh(false);
         await Promise.all(listings.filter(listing => {
             if (filters["city"] != "") {
-                if(!(listing["city"] === filters["city"])){
+                const cityArr = filters["city"].split(",").map(f => f.trim());
+                if(!(cityArr.includes(listing["city"]))){
                     return false;
                 }
             }
             if(filters["zip"] != "") {
-                if(!(listing["zip"] === filters["zip"])){
+                const zipArr = filters["zip"].split(",").map(f => f.trim());
+                if(!(zipArr.includes(listing["zip"]))){
                     return false;
                 }
             }
@@ -141,18 +139,25 @@ export default function SaleTable({ listings }) {
             <hr />
             <h4>Filters</h4>
             <Row className="mb-3">
-                <Col sm={6} lg={4}>
+                <Col xs={12} sm={10}>
                     <Card className="bg-light">
                         <Card.Body>
                             <Form>
-                                <Form.Group>
-                                    <Form.Label>City</Form.Label>
-                                    <Form.Control type="text" name="city" value={filters["city"]} onChange={handleChange}/>
-                                </Form.Group>
-                                <Form.Group className="mt-2">
-                                    <Form.Label>Zip</Form.Label>
-                                    <Form.Control type="text" name="zip" value={filters["zip"]} onChange={handleChange}/>
-                                </Form.Group>
+                                <small>* Multiple filters must be comma-separated</small>
+                                <Row className="mt-2">
+                                    <Col>
+                                        <Form.Group>
+                                            <Form.Label>City</Form.Label>
+                                            <Form.Control type="text" name="city" value={filters["city"]} onChange={handleChange}/>
+                                        </Form.Group>
+                                    </Col>
+                                    <Col>
+                                        <Form.Group>
+                                            <Form.Label>Zip</Form.Label>
+                                            <Form.Control type="text" name="zip" value={filters["zip"]} onChange={handleChange}/>
+                                        </Form.Group>
+                                    </Col>
+                                </Row>
                                 <div className="mt-3 d-flex justify-content-between">
                                     <Button size="sm" onClick={filterListings} className="float-start">Apply</Button>
                                     <Button size="sm" onClick={resetFilters} className="float-end">Reset</Button>

@@ -26,9 +26,23 @@ export default function Listing() {
         .then(res => res.json())
         .then(data => {
             setListing(data);
-            console.log(data);
         });
     };
+
+    const formatDate = (update) => {
+        const date = new Date(update);
+        const fmtDate = date.toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"});
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+        let seconds = date.getSeconds();
+        let ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0'+minutes : minutes;
+        seconds = seconds < 10 ? '0'+seconds : seconds;
+        const strTime = hours + ':' + minutes + ':' + seconds + ' ' + ampm;
+        return fmtDate + " at " + strTime;
+    }
 
     useEffect(() => {
         async function fetchData() {
@@ -57,7 +71,7 @@ export default function Listing() {
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <b>List Price</b>: {listing['ListPrice'] ? `$${listing['ListPrice']}` : ''}
+                                            <b>List Price</b>: {listing['ListPrice'] ? `${parseInt(listing['ListPrice']).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 })}` : ''}
                                         </td>
                                         <td>
                                             <b>Bedrooms</b>: {listing['BedroomsTotal'] ? `${listing['BedroomsTotal']}` : ''}
@@ -132,7 +146,18 @@ export default function Listing() {
                                 </tbody>
                             </Table>
 
-                            <p>{listing['PublicRemarks']}</p>        
+                            <p>{listing['PublicRemarks']}</p>
+
+                            <div className="mt-4">
+                                <img src="/ntreis.png" />
+                                <p>Listing Courtesy of {listing['ListAgentFullName']} of {listing['ListAgentMLSProvider']}</p>
+                                <p>© 2022 North Texas Real Estate Information Systems. All rights reserved. Information is 
+                                    deemed reliable, but is not guaranteed accurate by the MLS or NTREIS. The information being provided 
+                                    is for the consumers personal, non-commercial use, and may not be reproduced, redistributed or used 
+                                    for any purpose other than to identify prospective properties consumers may be interested in purchasing. 
+                                    Data last updated: {formatDate(listing['ModificationTimestamp'])}
+                                    </p>   
+                            </div>  
 
                         </Col>
                     </Row>
