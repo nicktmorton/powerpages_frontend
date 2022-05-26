@@ -21,43 +21,46 @@ export default function Header() {
     }
 
     return (
-        <Nav
-        activeKey={active}
-        className="bg-light text-light mb-4"
-        onSelect={(selected) => setActive(selected)}
-        >
-            <div className="d-flex justify-content-between">
-                <>
-                    <Nav.Item>
-                        <Nav.Link href="/home">New Residential Sale</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link href="/lease">New Residential Lease</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link href="/price">Price Changes</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link href="/status">Status Changes</Nav.Link>
-                    </Nav.Item>
-                </>
-                <div className="float-end">
-                    {user.level <= 2 && (
-                        <Nav.Item className="float-start">
-                            <Nav.Link href="/account">Account</Nav.Link>
+        <div className="mb-4">
+            <Nav
+            activeKey={active}
+            className="bg-light text-light"
+            onSelect={(selected) => setActive(selected)}
+            >
+                <div className="d-flex justify-content-between">
+                    <>
+                        <Nav.Item>
+                            <Nav.Link href="/home">New Residential Sale</Nav.Link>
                         </Nav.Item>
-                    )}
-                    {user.level === 1 && (
-                        <Nav.Item className="float-start">
-                            <Nav.Link href="/admin">Admin</Nav.Link>
+                        <Nav.Item>
+                            <Nav.Link href="/lease">New Residential Lease</Nav.Link>
                         </Nav.Item>
-                    )}
-                    <Button className="float-end" variant="link" onClick={handleLogout}>
-                        <FontAwesomeIcon icon={faSignOut} />
-                        <span className="mx-2">Logout</span>
-                    </Button>
+                        <Nav.Item>
+                            <Nav.Link href="/price">Price Changes</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link href="/status">Status Changes</Nav.Link>
+                        </Nav.Item>
+                    </>
+                    <div className="float-end">
+                        {user.level <= 2 && (
+                            <Nav.Item className="float-start">
+                                <Nav.Link href="/account">Account</Nav.Link>
+                            </Nav.Item>
+                        )}
+                        {user.level === 1 && (
+                            <Nav.Item className="float-start">
+                                <Nav.Link href="/admin">Admin</Nav.Link>
+                            </Nav.Item>
+                        )}
+                        <Button className="float-end" variant="link" onClick={handleLogout}>
+                            <FontAwesomeIcon icon={faSignOut} />
+                            <span className="mx-2">Logout</span>
+                        </Button>
+                    </div>
                 </div>
-            </div>
-        </Nav>
+            </Nav>
+            {user.logo && <img src={user.logo} height={50} /> }
+        </div>
     )
 }

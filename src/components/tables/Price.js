@@ -98,12 +98,14 @@ export default function PriceTable({ listings }) {
         setFresh(false);
         await Promise.all(listings.filter(listing => {
             if (filters["city"] != "") {
-                if(!(listing["city"] === filters["city"])){
+                const cityArr = filters["city"].split(",").map(f => f.trim());
+                if(!(cityArr.includes(listing["city"]))){
                     return false;
                 }
             }
             if(filters["zip"] != "") {
-                if(!(listing["zip"] === filters["zip"])){
+                const zipArr = filters["zip"].split(",").map(f => f.trim());
+                if(!(zipArr.includes(listing["zip"]))){
                     return false;
                 }
             }
