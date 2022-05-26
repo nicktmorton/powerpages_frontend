@@ -8,6 +8,7 @@ import Account from "../../pages/Auth/Account";
 
 export default function AuthGuard({ children }) {
 
+    const [adminAuth, setAdminAuth] = useState(false);
     const [authorized, setAuthorized] = useState(false);
     const [verified, setVerified] = useState(false);
     const [page, setPage] = useState("login");
@@ -19,14 +20,29 @@ export default function AuthGuard({ children }) {
         if(!isLoading) {
             if(user && user.token){
                 setAuthorized(true);
-                setVerified(user.verified);
+                if(user.level === 1) {
+                    setVerified(true);
+                    setAdminAuth(true);
+                } else {
+                    setVerified(user.verified);
+                }
             } else {
+                if(adminAuth) {
+                    setAdminAuth(false);
+                }
                 if(authorized) {
                     setAuthorized(false);
                 }
             }
         }
     },[user,isLoading,isSuccess,dispatch]);
+
+    if(authorized && window.location.pathname.includes("admin")) {
+        if(!adminAuth) {
+            window.location = "/";
+            return;
+        }
+    }
 
     if(authorized && user.level > 2) return children;
 

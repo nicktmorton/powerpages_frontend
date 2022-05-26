@@ -42,9 +42,14 @@ export default function Header() {
                     </Nav.Item>
                 </>
                 <div className="float-end">
-                    {user.level === 2 && (
+                    {user.level <= 2 && (
                         <Nav.Item className="float-start">
                             <Nav.Link href="/account">Account</Nav.Link>
+                        </Nav.Item>
+                    )}
+                    {user.level === 1 && (
+                        <Nav.Item className="float-start">
+                            <Nav.Link href="/admin">Admin</Nav.Link>
                         </Nav.Item>
                     )}
                     <Button className="float-end" variant="link" onClick={handleLogout}>
