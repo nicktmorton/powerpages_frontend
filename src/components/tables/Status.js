@@ -143,18 +143,25 @@ export default function StatusTable({ listings }) {
             <hr />
             <h4>Filters</h4>
             <Row className="mb-3">
-                <Col sm={6} lg={4}>
+                <Col xs={12} sm={10}>
                     <Card className="bg-light">
                         <Card.Body>
                             <Form>
-                                <Form.Group>
-                                    <Form.Label>City</Form.Label>
-                                    <Form.Control type="text" name="city" value={filters["city"]} onChange={handleChange}/>
-                                </Form.Group>
-                                <Form.Group className="mt-2">
-                                    <Form.Label>Zip</Form.Label>
-                                    <Form.Control type="text" name="zip" value={filters["zip"]} onChange={handleChange}/>
-                                </Form.Group>
+                                <small>* Multiple filters must be comma-separated</small>
+                                <Row className="mt-2">
+                                    <Col>
+                                        <Form.Group>
+                                            <Form.Label>City</Form.Label>
+                                            <Form.Control type="text" name="city" value={filters["city"]} onChange={handleChange}/>
+                                        </Form.Group>
+                                    </Col>
+                                    <Col>
+                                        <Form.Group>
+                                            <Form.Label>Zip</Form.Label>
+                                            <Form.Control type="text" name="zip" value={filters["zip"]} onChange={handleChange}/>
+                                        </Form.Group>
+                                    </Col>
+                                </Row>
                                 <div className="mt-3 d-flex justify-content-between">
                                     <Button size="sm" onClick={filterListings} className="float-start">Apply</Button>
                                     <Button size="sm" onClick={resetFilters} className="float-end">Reset</Button>
