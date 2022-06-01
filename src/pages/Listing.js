@@ -150,7 +150,7 @@ export default function Listing() {
 
                             <div className="mt-4">
                                 <img src="/ntreis.png" />
-                                <p>Listing Courtesy of {listing['ListAgentFullName']} of {listing['ListAgentMLSProvider']}</p>
+                                <p>Listing Courtesy of {listing['ListAgentFullName']} of {listing['ListOfficeName']}</p>
                                 <p>© 2022 North Texas Real Estate Information Systems. All rights reserved. Information is 
                                     deemed reliable, but is not guaranteed accurate by the MLS or NTREIS. The information being provided 
                                     is for the consumers personal, non-commercial use, and may not be reproduced, redistributed or used 
