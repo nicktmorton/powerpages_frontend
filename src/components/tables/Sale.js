@@ -87,52 +87,68 @@ export default function SaleTable({ listings }) {
         const name = event.target.name;
         const value = event.target.value;
         setFilters(prev => ({...prev, [name]: value}));
-    }
+    };
 
-    const filterListings = async () => {
+    const filterListings = async (initial,localFilters) => {
+        console.log("Filter call: ",initial," Filters: ",localFilters," Loading: ",loading);
         setLoading(true);
         setFresh(false);
-        await Promise.all(listings.filter(listing => {
-            if (filters["city"] != "") {
-                const cityArr = filters["city"].split(",").map(f => f.trim());
+        if(!initial) {
+            localStorage.setItem('POWERPAGES_FILTERS',JSON.stringify(localFilters));
+        }
+        const res = listings.filter(listing => {
+            if (localFilters["city"] != "") {
+                const cityArr = localFilters["city"].split(",").map(f => f.trim());
                 if(!(cityArr.includes(listing["city"]))){
                     return false;
                 }
             }
-            if(filters["zip"] != "") {
-                const zipArr = filters["zip"].split(",").map(f => f.trim());
+            if(localFilters["zip"] != "") {
+                const zipArr = localFilters["zip"].split(",").map(f => f.trim());
                 if(!(zipArr.includes(listing["zip"]))){
                     return false;
                 }
             }
             return true;
-        }))
-        .then(res => {
-            if(res) {
-                setSubset(res);
-            } else {
-                setSubset([]);
-            }
-            setLoading(false);
         });
-    }
+        if(res) {
+            setSubset(res);
+        } else {
+            setSubset([]);
+        }
+        console.log("Loading state after filter: ",loading);
+        setLoading(false);
+    };
 
     const resetFilters = () => {
-        setLoading(true);
+        localStorage.removeItem('POWERPAGES_FILTERS')
         setFilters({
             city: "",
             zip: ""
         });
         setSubset([]);
         setFresh(true);
-        setLoading(false);
-    }
+    };
 
     useEffect(() => {
-        setLoading(false);
-    },[]);
+        setLoading(true);
+        async function handleInitialFilters() {
+            const data = JSON.parse(window.localStorage.getItem('POWERPAGES_FILTERS'));
+            if(data != null) {
+                setFilters(data);
+                if(data["city"] || data["zip"]) {
+                    await filterListings(true,data);
+                }
+            } else {
+                setLoading(false);
+            }
+        }
+        handleInitialFilters();
+    },[listings]);
 
-    if(loading) return (<div>Loading...</div>)
+    if(loading) {
+        return(<div>Loading...</div>)
+    }
 
     return (
         <>
@@ -159,7 +175,7 @@ export default function SaleTable({ listings }) {
                                     </Col>
                                 </Row>
                                 <div className="mt-3 d-flex justify-content-between">
-                                    <Button size="sm" onClick={filterListings} className="float-start">Apply</Button>
+                                    <Button size="sm" onClick={() => filterListings(false,filters)} className="float-start">Apply</Button>
                                     <Button size="sm" onClick={resetFilters} className="float-end">Reset</Button>
                                 </div>
                             </Form>

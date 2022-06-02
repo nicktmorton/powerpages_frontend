@@ -1,19 +1,20 @@
 import {
-    Table as BSTable
+    Table as BSTable,
+    Button
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import moment from "moment-timezone";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowUp, faArrowDown, faArrowsUpDown } from "@fortawesome/free-solid-svg-icons";
+import { faArrowUp, faArrowDown, faArrowsUpDown, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 export default function Table({ header, variant, mapping, listings }) {
 
-    const [loading, setLoading] = useState(true);
     const [sortCol, setSortCol] = useState(999);
+    const [sortKey, setSortKey] = useState("");
     const [sortAsc, setSortAsc] = useState(true);
     const [sorted, setSorted] = useState([]);
-    const [masked, setMasked] = useState([]);
+    const [watchList, setWatchList] = useState([]);
 
     const getMaskedListing = (listing) => {
         const final = [];
@@ -76,41 +77,71 @@ export default function Table({ header, variant, mapping, listings }) {
         return value;
     }
 
-    const handleSortChange = (index,type) => {
+    const handleSortChange = (index,key) => {
         if(index === sortCol) {
             const curr = sortAsc;
             setSortAsc(!curr);
             setSorted(sorted.reverse());
         } else {
             setSortCol(index);
+            setSortKey(key);
             setSortAsc(true);
-            sortListings(index,type,true);
+            sortListings(sorted,key,true);
         }
     }
 
-    const sortListings = (col,type,dir) => {
-        let temp = masked;
-        //const key = Object.keys(masked[0])[col]["title"];
-        const key = col;
-        const compareStringsInts = (x,y) => { return x.toLowerCase().localeCompare(y.toLowerCase()) } 
-        const compareLinks = (x,y) => { return x["props"]["children"].toLowerCase().localeCompare(y["props"]["children"].toLowerCase()) } 
-        //const compareInts = (x,y) => { return x > y } 
+    const sortListings = (presort,key,dir) => {
+        let temp = presort;
+        const compareStringsInts = (x,y) => { return x.toLowerCase().localeCompare(y.toLowerCase()) }
         if(dir) {
-            temp.sort((a,b) => type == "link" ? compareLinks(a[key],b[key]) : compareStringsInts(a[key],b[key]));
+            temp.sort((a,b) => compareStringsInts(a[key],b[key]));
         } else {
-            temp.sort((a,b) => type == "link" ? compareLinks(b[key],a[key]) : compareStringsInts(b[key],a[key]));
+            temp.sort((a,b) => compareStringsInts(b[key],a[key]));
         }
         setSorted(temp);
+    }
+
+    const siftListings = (blended, list) => {
+        const watched = [];
+        const unwatched = [];
+        blended.forEach((b) => {
+            if(list.includes(b["listingId"])) {
+                watched.push(b);
+            } else {
+                unwatched.push(b);
+            }
+        });
+        return watched.concat(unwatched);
+    }
+
+    const toggleWatch = (listingId,add=true) => {
+        const curr = watchList;
+        let newest = [];
+        if(add) {
+            newest = curr;
+            newest.push(listingId);
+        } else {
+            newest = curr.filter(w => w != listingId);
+        }
+        setWatchList(newest);
+        localStorage.setItem('POWERPAGES_WATCH_LIST',JSON.stringify(newest));
+        window.location.reload();
     }
 
     useEffect(() => {
-        const temp = listings.map(l => getMaskedListing(l));
-        setMasked(temp);
-        setSorted(temp);
-        setLoading(false);
+        if(sortCol === 999) {
+            setSorted(siftListings(listings,watchList));
+        } else {
+            sortListings(sorted,sortKey,sortAsc);
+        }
     },[listings]);
 
-    if(loading) return (<div>Loading...</div>)
+    useEffect(() => {
+        const data = window.localStorage.getItem('POWERPAGES_WATCH_LIST');
+        if(data !== null) {
+            setWatchList(JSON.parse(data));
+        }
+    },[]);
 
     return (
         <BSTable size="sm" bordered hover>
@@ -127,7 +158,7 @@ export default function Table({ header, variant, mapping, listings }) {
                                     <FontAwesomeIcon 
                                     icon={sortCol === tindex ? (sortAsc ? faArrowUp : faArrowDown) : faArrowsUpDown} 
                                     className={`mx-2 ${sortCol === tindex ? 'text-primary' : ''}`} 
-                                    onClick={() => handleSortChange(tindex,t["sort_type"])}/>
+                                    onClick={() => handleSortChange(tindex,t["mask"])}/>
                                 }
                             </span>
                         </td>
@@ -136,13 +167,24 @@ export default function Table({ header, variant, mapping, listings }) {
             </thead>
             <tbody>
                 {sorted && sorted.map((v,vindex) => {
+                    const masked = getMaskedListing(v);
                     return (<tr style={{backgroundColor: '#FFFFFF'}} key={vindex}>
-                        {v.map((col,index) => (
+                        {masked.map((col,index) => (
                             <td className={(index === 0 && col===null) ? "text-center" : ""} key={`${vindex}_${index}`}>
                                 {index === 0 && col === null 
-                                ? 
-                                <input type="checkbox" /> 
-                                : 
+                                ?
+                                (
+                                    watchList.includes(v["listingId"]) 
+                                    ?
+                                    <Button onClick={() => toggleWatch(v["listingId"],false)} size="sm" className="bg-light text-danger">
+                                        <FontAwesomeIcon icon={faEyeSlash} />
+                                    </Button>
+                                    :
+                                    <Button onClick={() => toggleWatch(v["listingId"])} size="sm" variant="link" className="bg-light text-success">
+                                        <FontAwesomeIcon icon={faEye} />
+                                    </Button>
+                                )
+                                :
                                 col
                                 }
                             </td>

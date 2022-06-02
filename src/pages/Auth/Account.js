@@ -56,7 +56,7 @@ export default function Account() {
 
     const saveClientCodes = async () => {
         setSaving(true);
-        const formattedCodes = codes.map((c) => `${user.username}-${c}`);
+        //const formattedCodes = codes.map((c) => `${user.username}-${c}`);
         await fetch(`${process.env.REACT_APP_API_URL}/api/user/saveClientCodes`,{
             method: 'post',
             headers: {
@@ -64,7 +64,7 @@ export default function Account() {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${user.token}`
             },
-            body: JSON.stringify({ codes: formattedCodes })
+            body: JSON.stringify({ codes: codes })
         }).then(setSaving(false));
     }
 

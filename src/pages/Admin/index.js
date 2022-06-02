@@ -21,6 +21,17 @@ export default function Account() {
         });
     }
 
+    const validateUser = async (id) => {
+        await fetch(`${process.env.REACT_APP_API_URL}/api/admin/validateUser/${id}`,{
+            headers: {
+                "Authorization": `Bearer ${user.token}`
+            }
+        })
+        .then(res => {
+            window.location.reload();
+        });
+    }
+
     useEffect(() => {
         async function fetchData() {
             await getUsers();
@@ -51,7 +62,12 @@ export default function Account() {
                                         <tr>
                                             <td>{u.email}</td>
                                             <td>{u.username}</td>
-                                            <td>{u.verified ? "True" : "False"}</td>
+                                            <td>{u.verified 
+                                            ? 
+                                            "Verified" 
+                                            : 
+                                            <Button variant="link" size="sm" onClick={() => validateUser(u["id"])}>Verify</Button>
+                                            }</td>
                                         </tr>
                                     ))}
                                 </tbody>
