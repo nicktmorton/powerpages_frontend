@@ -135,7 +135,7 @@ export default function Account() {
                                     <small className="text-danger my-2">I affirm and understand I will not supply my Primary agent login 
                                     information to any other person. Access to certain data is a strict vilation of MLS and PowerPage. Any 
 				    viloation will result in your account being immediately revoked and will 
-                                    not be reinstated and there are no refunds.<br><br>
+                                    not be reinstated and there are no refunds.<br /><br />
 				    Please use the following fields to activate acocunts for your clients. Simply enter their name or whatever username
 				    you want to provide them - they will use this to access the Powerpage.  If you remove the ID, access will be suspened.
 				    Enter a new ID for a new client.  If an ID is shared, each time the ID is used it will kick-out any other user trying 
