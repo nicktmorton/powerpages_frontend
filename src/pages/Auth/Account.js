@@ -131,7 +131,7 @@ export default function Account() {
                             </Table>
                             {user.verified === 1 && (
                                 <div className="mt-4">
-                                    <h4>Client Login Codes</h4>
+                                    <h4 id="cc">Client Login Codes</h4>
                                     <small className="text-danger my-2">I affirm and understand I will not supply my Primary agent login 
                                     information to any other person. Access to certain data is a srrict violation MLS and PowerPage 
                                     terms and conditions. Any viloation will result in your account being immediately revoked and will 

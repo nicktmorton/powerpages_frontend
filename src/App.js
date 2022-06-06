@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './css/custom.css';
 
 import AuthGuard from "./components/auth/AuthGuard";
 import Router from "./Router";
