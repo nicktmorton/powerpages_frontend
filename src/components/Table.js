@@ -153,7 +153,7 @@ export default function Table({ header, variant, mapping, listings }) {
                     {mapping.map((t,tindex) => (
                         <td className="fw-normal" key={tindex}>
                             <span>
-                                {t["title"]}
+                                <b>{t["title"]}</b>
                                 {t["sortable"] && 
                                     <FontAwesomeIcon 
                                     icon={sortCol === tindex ? (sortAsc ? faArrowUp : faArrowDown) : faArrowsUpDown} 

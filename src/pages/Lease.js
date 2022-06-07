@@ -50,7 +50,7 @@ export default function Home() {
 
     return (
         <>
-            <h1>New Residential Lease - {listings.length} Records</h1><hr />
+            <h2>New Residential Lease - {listings.length} Records</h2><hr />
             <h4>Dates</h4>
             <ListGroup horizontal>
                 {dateRange.map((day,dindex) => (

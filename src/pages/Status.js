@@ -50,7 +50,7 @@ export default function Price() {
 
     return (
         <>
-            <h1>Status Changes - {listings.length} Records</h1><hr />
+            <h2>Status Changes - {listings.length} Records</h2><hr />
             <h4>Dates</h4>
             <ListGroup horizontal>
                 {dateRange.map((day,dindex) => (

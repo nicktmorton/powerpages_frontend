@@ -21,7 +21,7 @@ export default function Header() {
     }
 
     return (
-        <div className="mb-4">
+        <div>
             <Nav
             activeKey={active}
             className="bg-light text-light"

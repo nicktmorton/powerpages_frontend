@@ -94,22 +94,31 @@ export default function StatusTable({ listings }) {
     };
 
     const filterListings = async (initial,localFilters) => {
-        console.log("Filter call: ",initial," Filters: ",localFilters," Loading: ",loading);
         setLoading(true);
+        if(!localFilters["city"] && !localFilters["zip"]) {
+            localStorage.removeItem('POWERPAGES_FILTERS')
+            setFilters({
+                city: "",
+                zip: ""
+            });
+            setFresh(true);
+            setLoading(false);
+            return;
+        }
         setFresh(false);
         if(!initial) {
             localStorage.setItem('POWERPAGES_FILTERS',JSON.stringify(localFilters));
         }
         const res = listings.filter(listing => {
             if (localFilters["city"] != "") {
-                const cityArr = localFilters["city"].split(",").map(f => f.trim());
-                if(!(cityArr.includes(listing["city"]))){
+                const cityArr = localFilters["city"].split(",").map(f => f.trim().toLowerCase());
+                if(!(cityArr.includes(listing["city"].toLowerCase()))){
                     return false;
                 }
             }
             if(localFilters["zip"] != "") {
-                const zipArr = localFilters["zip"].split(",").map(f => f.trim());
-                if(!(zipArr.includes(listing["zip"]))){
+                const zipArr = localFilters["zip"].split(",").map(f => f.trim().toLowerCase());
+                if(!(zipArr.includes(listing["zip"].toLowerCase()))){
                     return false;
                 }
             }
@@ -168,13 +177,13 @@ export default function StatusTable({ listings }) {
                                     <Col>
                                         <Form.Group>
                                             <Form.Label>City</Form.Label>
-                                            <Form.Control type="text" name="city" value={filters["city"]} onChange={handleChange}/>
+                                            <Form.Control type="text" name="city" value={filters["city"]} onChange={handleChange} size="sm"/>
                                         </Form.Group>
                                     </Col>
                                     <Col>
                                         <Form.Group>
                                             <Form.Label>Zip</Form.Label>
-                                            <Form.Control type="text" name="zip" value={filters["zip"]} onChange={handleChange}/>
+                                            <Form.Control type="text" name="zip" value={filters["zip"]} onChange={handleChange} size="sm"/>
                                         </Form.Group>
                                     </Col>
                                 </Row>
