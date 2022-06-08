@@ -127,9 +127,10 @@ export default function Account() {
                                         <td>Logo:</td>
                                         <td><input type="file" accept="image/*" ref={fileRef} onChange={handleFileChange}/></td>
                                     </tr>
-				<tr>Adding a logo is not required, however, if you wish to have your logo at the top of the PowerPage as a marketing touch,
+				    <tr>Adding a logo is not required, however, if you wish to have your logo at the top of the PowerPage as a marketing touch,
 					simply upload the logo. <br /><br />IMPORTANT: be careful not to add a logo that is to tall (or high) as this will 
 					push the data further down the page which makes mobile screen viewing a bit more crowded.
+				    </tr>
                                 </tbody>
                             </Table>
                             {user.verified === 1 && (
