@@ -75,7 +75,7 @@ export default function Info() {
             </FormGroup>
             <FormGroup className="mt-3">
                 <FormLabel>
-                    Agent License #
+                    Agent License # - must be valid TX RE license to complete final setup
                 </FormLabel>
                 <FormControl type="text" name="username" value={info.username} onChange={handleChange}/>
             </FormGroup>
@@ -87,7 +87,7 @@ export default function Info() {
             </FormGroup>
             <FormGroup className="mt-3">
                 <FormLabel>
-                    Confirm
+                    Confirm Password
                 </FormLabel>
                 <FormControl type="password" name="confirm" value={info.confirm} onChange={handleChange}/>
             </FormGroup>
