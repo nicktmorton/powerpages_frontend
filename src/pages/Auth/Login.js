@@ -16,7 +16,7 @@ export default function Login({ setPage }) {
                             <Form>
                                 {<Credentials />}
                             </Form>
-                            <Button variant="link" size="sm" className="mt-3" onClick={setPage}>Register</Button>
+                            <Button variant="link" size="sm" className="mt-3" onClick={setPage}>Register New Account</Button>
                         </Card.Body>
                     </Card>
                 </Col>
