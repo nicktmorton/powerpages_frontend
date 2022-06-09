@@ -27,7 +27,7 @@ export default function Subdivision() {
     };
 
     useEffect(() => {
-        document.title = "PowerPages Subdivision"
+        document.title = "PowerPage Subdivision"
         async function fetchData() {
             await getListingsBySubdivision();
             setLoading(false);
