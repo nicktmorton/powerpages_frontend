@@ -70,7 +70,7 @@ export default function SubdivisionTable({ listings }) {
     return (
         <>
             <Table
-            header="Powerpage SOLD Listings"
+            header="Powerpage SOLD Listings Last 90 Days"
             variant="primary"
             mapping={mapping}
             listings={listings}
