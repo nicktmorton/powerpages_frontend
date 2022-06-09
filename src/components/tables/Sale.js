@@ -193,7 +193,7 @@ export default function SaleTable({ listings }) {
                 </Col>
             </Row>
             <Table
-            header="Powerpage NEW RESIDENTIAL SINGLE FAMILY Listings for SALE - This does NOT include Farm and Ranch properties"
+            header="Powerpage NEW RESIDENTIAL SINGLE FAMILY Listings for SALE - This does NOT include Farm and Ranch or Mobile home type properties"
             variant="primary"
             mapping={mapping}
             listings={fresh === true ? (listings || []) : subset}
