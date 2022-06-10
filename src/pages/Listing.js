@@ -146,9 +146,9 @@ export default function Listing() {
                                 </tbody>
                             </Table>
 
-                            <p>{listing['PublicRemarks']}</p>
+                            <p className="fontTwelve">{listing['PublicRemarks']}</p>
 
-                            <div className="mt-4">
+                            <div className="mt-4 fontTwelve">
                                 <img src="/ntreis.png" />
                                 <p>Listing Courtesy of {listing['ListAgentFullName']} of {listing['ListOfficeName']}</p>
                                 <p>© 2022 North Texas Real Estate Information Systems. All rights reserved. Information is 

@@ -60,12 +60,20 @@ const mapping = [
     {
         "title": "SqFT.",
         "mask": "sqft",
-        "number": true   
+        "number": true,
+        "sortable": true,
+        "sort_type": "int"
     },
     {
         "title": "Bed/Bath/Mstr Lvl",
         "mask": [ "bed", "bath", "masterLevel"],
         "delimiter": " / "
+    },
+    {
+        "title": "Year Built",
+        "mask": "yearBuilt",
+        "sortable": true,
+        "sort_type": "int"
     },
     {
         "title": "Pool",

@@ -11,6 +11,7 @@ import { faArrowUp, faArrowDown, faArrowsUpDown, faEye, faEyeSlash } from "@fort
 export default function Table({ header, variant, mapping, listings }) {
 
     const [sortCol, setSortCol] = useState(999);
+    const [sortType, setSortType] = useState("string");
     const [sortKey, setSortKey] = useState("");
     const [sortAsc, setSortAsc] = useState(true);
     const [sorted, setSorted] = useState([]);
@@ -53,7 +54,8 @@ export default function Table({ header, variant, mapping, listings }) {
             return <Link to={`${element["link"]["path"]}${listing[element["link"]["mask"]]}`}>{value}</Link>  
         }
         if("timestamp" in element) {
-            return moment(value).format("MM-DD h:mm:ss a")
+            //return moment(value).format("MM-DD h:mm:ss a")
+            return moment(value).format("h:mm:ss a")
         }
         if("price" in element) {
             if(isArray) {
@@ -77,26 +79,36 @@ export default function Table({ header, variant, mapping, listings }) {
         return value;
     }
 
-    const handleSortChange = (index,key) => {
+    const handleSortChange = (index,key,type) => {
         if(index === sortCol) {
             const curr = sortAsc;
             setSortAsc(!curr);
             setSorted(sorted.reverse());
         } else {
             setSortCol(index);
+            setSortType(type);
             setSortKey(key);
             setSortAsc(true);
-            sortListings(sorted,key,true);
+            sortListings(sorted,key,true,type);
         }
     }
 
-    const sortListings = (presort,key,dir) => {
+    const sortListings = (presort,key,dir,type) => {
         let temp = presort;
-        const compareStringsInts = (x,y) => { return x.toLowerCase().localeCompare(y.toLowerCase()) }
+        const compareStrings = (x,y) => { return x.toLowerCase().localeCompare(y.toLowerCase()) }
+        const compareInts = (x,y) => { return x - y }
         if(dir) {
-            temp.sort((a,b) => compareStringsInts(a[key],b[key]));
+            if(type == "int") {
+                temp.sort((a,b) => compareInts(a[key],b[key]));
+            } else {
+                temp.sort((a,b) => compareStrings(a[key],b[key]));
+            }
         } else {
-            temp.sort((a,b) => compareStringsInts(b[key],a[key]));
+            if(type == "int") {
+                temp.sort((a,b) => compareInts(b[key],a[key]));
+            } else {
+                temp.sort((a,b) => compareStrings(b[key],a[key]));
+            }
         }
         setSorted(temp);
     }
@@ -132,7 +144,7 @@ export default function Table({ header, variant, mapping, listings }) {
         if(sortCol === 999) {
             setSorted(siftListings(listings,watchList));
         } else {
-            sortListings(sorted,sortKey,sortAsc);
+            sortListings(sorted,sortKey,sortAsc,sortType);
         }
     },[listings]);
 
@@ -158,7 +170,7 @@ export default function Table({ header, variant, mapping, listings }) {
                                     <FontAwesomeIcon 
                                     icon={sortCol === tindex ? (sortAsc ? faArrowUp : faArrowDown) : faArrowsUpDown} 
                                     className={`mx-2 ${sortCol === tindex ? 'text-primary' : ''}`} 
-                                    onClick={() => handleSortChange(tindex,t["mask"])}/>
+                                    onClick={() => handleSortChange(tindex,t["mask"],t["sort_type"])}/>
                                 }
                             </span>
                         </td>

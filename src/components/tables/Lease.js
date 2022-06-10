@@ -60,7 +60,9 @@ const mapping = [
     {
         "title": "SqFT.",
         "mask": "sqft",
-        "number": true   
+        "number": true,
+        "sortable": true,
+        "sort_type": "int"
     },
     {
         "title": "Bed/Bath/Mstr Lvl",
@@ -68,9 +70,20 @@ const mapping = [
         "delimiter": " / "
     },
     {
+        "title": "Year Built",
+        "mask": "yearBuilt",
+        "sortable": true,
+        "sort_type": "int"
+    },
+    {
         "title": "Pool",
         "mask": "pool"
-    }
+    },
+    {
+        "title": "Pets Allowed / #",
+        "mask": [ "petsAllowed", "petsNum"],
+        "delimiter": " / "
+    },
 ];
 
 export default function LeaseTable({ listings }) {
