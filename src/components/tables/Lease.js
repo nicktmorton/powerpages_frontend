@@ -81,8 +81,7 @@ const mapping = [
     },
     {
         "title": "Pets / #",
-        "mask": [ "
-                 Allowed", "petsNum"],
+        "mask": [ "Allowed", "petsNum"],
         "delimiter": " / "
     },
 ];
