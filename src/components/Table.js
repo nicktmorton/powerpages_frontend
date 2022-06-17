@@ -60,6 +60,9 @@ export default function Table({ header, variant, mapping, listings }) {
         if("price" in element) {
             if(isArray) {
                 return value.map(v => {
+                    if(!v) {
+                        return '';
+                    }
                     return v.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 })
                 }).join(element["delimiter"]);
             }

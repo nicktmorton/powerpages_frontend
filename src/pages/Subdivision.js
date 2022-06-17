@@ -42,7 +42,7 @@ export default function Subdivision() {
 
     return (
         <>
-            <h2>Last 90 Days Sold Subdivision - {name} - {listings.length} Records</h2><hr />
+            <h2>Last 180 Days Sold Subdivision - {name} - {listings.length} Records</h2><hr />
             <div className="my-4">
                 <SubdivisionTable listings={listings}/>
             </div>
