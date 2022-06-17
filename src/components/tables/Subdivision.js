@@ -93,8 +93,8 @@ const mappingSecondary = [
         "mask": "listingId"
     },
     {
-        "title": "Orig / Sold $",
-        "mask": [ "originalPrice", "closePrice" ],
+        "title": "Sold / Last $",
+        "mask": [ "closePrice", "listPrice" ],
         "delimiter": " / ",
         "price": true
     },
