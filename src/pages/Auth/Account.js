@@ -135,7 +135,7 @@ export default function Account() {
                             <img 
                             src={file ? URL.createObjectURL(file) : (user.logo ? user.logo : `${process.env.PUBLIC_URL}/logo-upload-file-png.png`)} 
                             alt="logo" 
-                            height={200} 
+                            height={100} 
                             width={200} 
                             />
                             <Table striped={false} bordered={false}>
@@ -156,17 +156,18 @@ export default function Account() {
                                         <td>Logo:</td>
                                         <td><input type="file" accept="image/*" ref={fileRef} onChange={handleFileChange}/></td>
                                     </tr>
-				    <tr>Adding a logo is not required, however, if you wish to have your logo at the top of the PowerPage as a marketing touch,
+				    <tr>
+				        <td>Adding a logo is not required, however, if you wish to have your logo at the top of the PowerPage as a marketing touch,
 					simply upload the logo. <br /><br />IMPORTANT: be careful not to add a logo that is to tall (or high) as this will 
 					push the data further down the page which makes mobile screen viewing a bit more crowded.
+					</td>
 				    </tr>
                                 </tbody>
                             </Table>
                             {user.verified === 1 && (
                                 <div className="mt-4">
                                     <h4 id="cc">Client Login Codes</h4>
-                                   
-				    Please use the following fields to activate acocunts for your clients. Simply enter their name or whatever username
+                                    Please use the following fields to activate acocunts for your clients. Simply enter their name or whatever username
 				    you want to provide them that they should not forget - they will use this alone to access the Powerpage.  Simply enter a new ID whenever you want to 
 				    provide the PoweerPage to someone else. If you want to stop access for a user, just replace their current username with a new one.
 				    <br /><br />
