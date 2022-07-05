@@ -1,3 +1,32 @@
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@macrogithub 
+nicktmorton
+/
+powerpages_frontend
+Public
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+powerpages_frontend/src/pages/Auth/Account.js /
+@nicktmorton
+nicktmorton Update Account.js
+Latest commit 1e1b441 27 days ago
+ History
+ 2 contributors
+@nicktmorton@macrogithub
+291 lines (275 sloc)  16 KB
+
 import { useState, useEffect, useRef } from "react";
 import { Card, Form, Container, Row, Col, Button, Table, Tab, Spinner } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
@@ -127,11 +156,9 @@ export default function Account() {
                                         <td>Logo:</td>
                                         <td><input type="file" accept="image/*" ref={fileRef} onChange={handleFileChange}/></td>
                                     </tr>
-				    <tr>
-					<td>
-				        Adding a logo is not required, however, if you wish to have your logo at the top of the PowerPage as a marketing touch,
+				    <tr>Adding a logo is not required, however, if you wish to have your logo at the top of the PowerPage as a marketing touch,
 					simply upload the logo. <br /><br />IMPORTANT: be careful not to add a logo that is to tall (or high) as this will 
-					push the data further down the page which makes mobile screen viewing a bit more crowded.</td>
+					push the data further down the page which makes mobile screen viewing a bit more crowded.
 				    </tr>
                                 </tbody>
                             </Table>
@@ -139,6 +166,11 @@ export default function Account() {
                                 <div className="mt-4">
                                     <h4 id="cc">Client Login Codes</h4>
                                    
+				    Please use the following fields to activate acocunts for your clients. Simply enter their name or whatever username
+				    you want to provide them that they should not forget - they will use this alone to access the Powerpage.  Simply enter a new ID whenever you want to 
+				    provide the PoweerPage to someone else. If you want to stop access for a user, just replace their current username with a new one.
+				    <br /><br />
+				    Please let your clients know that If an ID is shared, whoever is logged in at that moment will be logged out of the PowerPage. Let your clients know it is clearly best to keep their ID private.
                                     <Table className="mt-4">
                                         <tbody>
                                             <tr>
@@ -284,3 +316,18 @@ export default function Account() {
     )
 
 }
+Footer
+© 2022 GitHub, Inc.
+Footer navigation
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+You have no unread notifications
