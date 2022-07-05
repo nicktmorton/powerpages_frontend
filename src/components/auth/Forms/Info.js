@@ -91,6 +91,12 @@ export default function Info() {
                 </FormLabel>
                 <FormControl type="password" name="confirm" value={info.confirm} onChange={handleChange}/>
             </FormGroup>
+                <FormLabel>
+                    By submitting this form, I agree to the following guidelines. I will not supply my Primary agent login 
+                    information to ANY other person. Access to certain data is a strict violation of MLS and PowerPage terms. Any 
+				    violoation will result in your account being immediately revoked and will not be reinstated and you agree to hold REMicrodata harmless. 
+                    There are no refunds for the PowerPage for any reason.<br /><br />
+				 </FormLabel>
             <Button variant="primary" size="sm" className="mt-3" disabled={creating} onClick={() => registerUser()}>
                 {creating ? <Spinner variant="light" /> : "Submit"}
             </Button>
