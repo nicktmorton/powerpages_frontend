@@ -127,23 +127,18 @@ export default function Account() {
                                         <td>Logo:</td>
                                         <td><input type="file" accept="image/*" ref={fileRef} onChange={handleFileChange}/></td>
                                     </tr>
-				    <tr>Adding a logo is not required, however, if you wish to have your logo at the top of the PowerPage as a marketing touch,
+				    <tr>
+					<td>
+				        Adding a logo is not required, however, if you wish to have your logo at the top of the PowerPage as a marketing touch,
 					simply upload the logo. <br /><br />IMPORTANT: be careful not to add a logo that is to tall (or high) as this will 
-					push the data further down the page which makes mobile screen viewing a bit more crowded.
+					push the data further down the page which makes mobile screen viewing a bit more crowded.</td>
 				    </tr>
                                 </tbody>
                             </Table>
                             {user.verified === 1 && (
                                 <div className="mt-4">
                                     <h4 id="cc">Client Login Codes</h4>
-                                    <small className="text-danger my-2">I affirm and understand I will not supply my Primary agent login 
-                                    information to any other person. Access to certain data is a strict vilation of MLS and PowerPage. Any 
-				    viloation will result in your account being immediately revoked and will 
-                                    not be reinstated and there are no refunds.<br /><br />
-				    Please use the following fields to activate acocunts for your clients. Simply enter their name or whatever username
-				    you want to provide them - they will use this to access the Powerpage.  Simply enter a new ID whenever you want to 
-				    provide the PoweerPage to someone else. <br /><br />Please let your clients know that If an ID is shared, whoever is 
-				    logged in at that moment will be logged out of the PowerPage. It is clearly best to keep IDs private.</small>
+                                   
                                     <Table className="mt-4">
                                         <tbody>
                                             <tr>
