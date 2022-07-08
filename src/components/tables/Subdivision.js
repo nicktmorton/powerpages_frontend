@@ -162,7 +162,7 @@ export default function SubdivisionTable({ listings }) {
     // Note that the 'Subdivision' doesnt need a subdivision filter
     const filterListings = async (initial,localFilters) => {
         setLoading(true);
-        if(!localFilters["city"] && !localFilters["zip"] && !localFilters["neighborhood"]) {
+        if(!localFilters["city"] && !localFilters["zip"] && !localFilters["subdivision"]) {
             localStorage.removeItem('POWERPAGES_FILTERS')
             setFilters({
                 city: "",

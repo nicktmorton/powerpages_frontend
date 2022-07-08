@@ -104,7 +104,7 @@ export default function LeaseTable({ listings }) {
 
     const filterListings = async (initial,localFilters) => {
         setLoading(true);
-        if(!localFilters["city"] && !localFilters["zip"]) {
+        if(!localFilters["city"] && !localFilters["zip"] && !localFilters["subdivision"]) {
             localStorage.removeItem('POWERPAGES_FILTERS')
             setFilters({
                 city: "",
@@ -160,6 +160,8 @@ export default function LeaseTable({ listings }) {
                 setFilters(data);
                 if(data["city"] || data["zip"]) {
                     await filterListings(true,data);
+                } else {
+                    setLoading(false);
                 }
             } else {
                 setLoading(false);
