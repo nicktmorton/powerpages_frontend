@@ -88,7 +88,8 @@ export default function SaleTable({ listings }) {
     const [subset, setSubset] = useState([]);
     const [filters, setFilters] = useState({
         city: "",
-        zip: ""
+        zip: "",
+        subdivision: ""
     });
 
     const handleChange = (event) => {
@@ -99,11 +100,12 @@ export default function SaleTable({ listings }) {
 
     const filterListings = async (initial,localFilters) => {
         setLoading(true);
-        if(!localFilters["city"] && !localFilters["zip"]) {
+        if(!localFilters["city"] && !localFilters["zip"] && !localFilters["subdivision"]) {
             localStorage.removeItem('POWERPAGES_FILTERS')
             setFilters({
                 city: "",
-                zip: ""
+                zip: "",
+                subdivision: ""
             });
             setFresh(true);
             setLoading(false);
@@ -126,6 +128,12 @@ export default function SaleTable({ listings }) {
                     return false;
                 }
             }
+            if (localFilters["subdivision"] != "") {
+                const subdivisionArr = localFilters["subdivision"].split(",").map(f => f.trim().toLowerCase());
+                if(!(subdivisionArr.includes(listing["subdivision"].toLowerCase()))){
+                    return false;
+                }
+            }
             return true;
         });
         if(res) {
@@ -141,7 +149,8 @@ export default function SaleTable({ listings }) {
         localStorage.removeItem('POWERPAGES_FILTERS')
         setFilters({
             city: "",
-            zip: ""
+            zip: "",
+            subdivision: ""
         });
         setSubset([]);
         setFresh(true);
@@ -153,7 +162,7 @@ export default function SaleTable({ listings }) {
             const data = JSON.parse(window.localStorage.getItem('POWERPAGES_FILTERS'));
             if(data != null) {
                 setFilters(data);
-                if(data["city"] || data["zip"]) {
+                if(data["city"] || data["zip"] || data["subdivision"]) {
                     await filterListings(true,data);
                 }
             } else {
@@ -178,16 +187,22 @@ export default function SaleTable({ listings }) {
                             <Form>
                                 <small>* Multiple filters must be comma-separated</small>
                                 <Row className="mt-2">
-                                    <Col>
+                                    <Col xs={5}>
                                         <Form.Group>
                                             <Form.Label>City</Form.Label>
                                             <Form.Control type="text" name="city" value={filters["city"]} onChange={handleChange} size="sm"/>
                                         </Form.Group>
                                     </Col>
-                                    <Col>
+                                    <Col xs={2}>
                                         <Form.Group>
                                             <Form.Label>Zip</Form.Label>
                                             <Form.Control type="text" name="zip" value={filters["zip"]} onChange={handleChange} size="sm"/>
+                                        </Form.Group>
+                                    </Col>
+                                    <Col xs={5}>
+                                        <Form.Group>
+                                            <Form.Label>Subdivision</Form.Label>
+                                            <Form.Control type="text" name="subdivision" value={filters["subdivision"]} onChange={handleChange} size="sm"/>
                                         </Form.Group>
                                     </Col>
                                 </Row>

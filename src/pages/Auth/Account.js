@@ -1,32 +1,3 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@macrogithub 
-nicktmorton
-/
-powerpages_frontend
-Public
-Code
-Issues
-Pull requests
-Actions
-Projects
-Wiki
-Security
-Insights
-powerpages_frontend/src/pages/Auth/Account.js /
-@nicktmorton
-nicktmorton Update Account.js
-Latest commit 1e1b441 27 days ago
- History
- 2 contributors
-@nicktmorton@macrogithub
-291 lines (275 sloc)  16 KB
-
 import { useState, useEffect, useRef } from "react";
 import { Card, Form, Container, Row, Col, Button, Table, Tab, Spinner } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
@@ -167,9 +138,9 @@ export default function Account() {
                             {user.verified === 1 && (
                                 <div className="mt-4">
                                     <h4 id="cc">Client Login Codes</h4>
-                                    Please use the following fields to activate acocunts for your clients. Simply enter their name or whatever username
+                                    Please use the following fields to activate accounts for your clients. Simply enter their name or whatever username
 				    you want to provide them that they should not forget - they will use this alone to access the Powerpage.  Simply enter a new ID whenever you want to 
-				    provide the PoweerPage to someone else. If you want to stop access for a user, just replace their current username with a new one.
+				    provide the PowerPage to someone else. If you want to stop access for a user, just replace their current username with a new one.
 				    <br /><br />
 				    Please let your clients know that If an ID is shared, whoever is logged in at that moment will be logged out of the PowerPage. Let your clients know it is clearly best to keep their ID private.
                                     <Table className="mt-4">
@@ -317,18 +288,3 @@ export default function Account() {
     )
 
 }
-Footer
-© 2022 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
-You have no unread notifications

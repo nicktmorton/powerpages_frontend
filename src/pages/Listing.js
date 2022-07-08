@@ -110,7 +110,7 @@ export default function Listing() {
                                             <b>Pool</b>: {listing['PoolYN'] ? (listing['PoolYN'] == "1" ? 'Yes' : 'No') : ''}
                                         </td>
                                         <td>
-                                            <b>HOA</b>: {listing['AssociationFee'] ? `${listing['AssociationFee']}` : ''}
+                                            <b>HOA</b>: {listing['AssociationFee'] ? `${parseInt(listing['AssociationFee']).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 })}` : ''}
                                         </td>
                                     </tr>
                                     <tr>
@@ -150,7 +150,7 @@ export default function Listing() {
 
                             <div className="mt-4 fontTwelve">
                                 <img src="/ntreis.png" />
-                                <p>Listing Courtesy of {listing['ListAgentFullName']} of {listing['ListOfficeName']}</p>
+                                <p>Listing Courtesy of {listing['ListAgentFullName']} of {listing['ListOfficeName']} | Phone: {listing['ListAgentDirectPhone']}</p>
                                 <p>© 2022 North Texas Real Estate Information Systems. All rights reserved. Information is 
                                     deemed reliable, but is not guaranteed accurate by the MLS or NTREIS. The information being provided 
                                     is for the consumers personal, non-commercial use, and may not be reproduced, redistributed or used 

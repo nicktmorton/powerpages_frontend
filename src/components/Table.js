@@ -76,6 +76,11 @@ export default function Table({ header, variant, mapping, listings }) {
             }
             return value.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
         }
+        if("exclude" in element) {
+            if(value == element["exclude"]) {
+                return null;
+            } 
+        }
         if(isArray) {
             return value.join(element["delimiter"]);
         }
