@@ -12,6 +12,7 @@ import Admin from "./pages/Admin/index";
 import Account from './pages/Auth/Account';
 
 import Header from './components/Header';
+import Cma from './pages/Cma';
 
 export default function Router() {
     return (
@@ -47,6 +48,10 @@ export default function Router() {
                     <Route 
                     path="/subdivision/:name"
                     element={<Subdivision />}
+                    />
+                    <Route 
+                    path="/cma"
+                    element={<Cma />}
                     />
                     <Route 
                     path="/account"

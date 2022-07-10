@@ -115,22 +115,28 @@ export default function SaleTable({ listings }) {
         if(!initial) {
             localStorage.setItem('POWERPAGES_FILTERS',JSON.stringify(localFilters));
         }
+        const cityArr = localFilters["city"].split(",").map(f => f.trim().toLowerCase());
+        const zipArr = localFilters["zip"].split(",").map(f => f.trim().toLowerCase());
+        const subdivisionArr = localFilters["subdivision"].split(",").map(f => f.split(/\s+/).join('').toLowerCase());
+        console.log("Sub array: ",subdivisionArr);
         const res = listings.filter(listing => {
             if (localFilters["city"] != "") {
-                const cityArr = localFilters["city"].split(",").map(f => f.trim().toLowerCase());
                 if(!(cityArr.includes(listing["city"].toLowerCase()))){
                     return false;
                 }
             }
             if(localFilters["zip"] != "") {
-                const zipArr = localFilters["zip"].split(",").map(f => f.trim().toLowerCase());
                 if(!(zipArr.includes(listing["zip"].toLowerCase()))){
                     return false;
                 }
             }
             if (localFilters["subdivision"] != "") {
-                const subdivisionArr = localFilters["subdivision"].split(",").map(f => f.trim().toLowerCase());
-                if(!(subdivisionArr.includes(listing["subdivision"].toLowerCase()))){
+                const temp = `^${listing["subdivision"].split(/\s+/).join('').toLowerCase()}`;
+                const reg = new RegExp(temp);
+                console.log("S: ",reg);
+                if(!(subdivisionArr.some(s => {
+                    return reg.test(s)
+                }))){
                     return false;
                 }
             }

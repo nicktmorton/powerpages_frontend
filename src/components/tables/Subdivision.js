@@ -23,10 +23,6 @@ const mapping = [
         }
     },
     {
-        "title": "Subdivision",
-        "mask": "subdivision"
-    },
-    {
         "title": "MLS #",
         "mask": "listingId"
     },
@@ -86,10 +82,6 @@ const mappingSecondary = [
             "path": "/listing/",
             "mask": "listingId"
         }
-    },
-    {
-        "title": "Subdivision",
-        "mask": "subdivision"
     },
     {
         "title": "MLS #",
@@ -266,7 +258,7 @@ export default function SubdivisionTable({ listings }) {
                 </Col>
             </Row>
             <Table
-            header="Powerpage SOLD Listings Last 90 Days"
+            header="Powerpage SOLD Listings Last 180 Days"
             variant="primary"
             mapping={user.level > 2 ? mapping : mappingSecondary}
             listings={fresh === true ? (listings || []) : subset}
