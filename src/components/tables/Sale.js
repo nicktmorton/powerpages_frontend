@@ -225,7 +225,7 @@ export default function SaleTable({ listings }) {
             header="Powerpage NEW RESIDENTIAL SINGLE FAMILY Listings for SALE - For SALE or LEASE will show on SALE and LEASE tables"
             variant="primary"
             mapping={mapping}
-            listings={fresh === true ? (listings || []) : subset}
+            listings={listings}
             />
         </>
     )
