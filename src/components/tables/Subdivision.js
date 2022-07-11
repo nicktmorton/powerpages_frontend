@@ -31,7 +31,7 @@ const mapping = [
         "mask": "listingId"
     },
     {
-        "title": "Current / Orig $",
+        "title": "Current / List $",
         "mask": [ "listPrice", "originalPrice" ],
         "delimiter": " / ",
         "price": true
