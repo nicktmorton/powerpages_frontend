@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import SaleTable from "../components/tables/Sale";
 import { ListGroup } from "react-bootstrap";
@@ -8,26 +8,32 @@ import axios from "axios";
 
 import { useQuery } from "react-query";
 
+const today = moment().tz('America/Chicago').format('YYYY-MM-DD');
+const dateRange = helper.getDateRange();
+
+async function fetchListings(token, date = today) {
+    return axios.get(`${process.env.REACT_APP_API_URL}/api/listings/getRecentListings/${date}`,{
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    }).then((res) => res.data);
+}
+
 export default function Home() {
 
     const { user } = useSelector((state) => state.auth);
 
-    const { isLoading, data } = useQuery("sale", () => {
-        axios.get(`${process.env.REACT_APP_API_URL}/api/listings/getRecentListings/2022-07-10`,{
-            headers: {
-                "Authorization": `Bearer ${user.token}`
-            }
-        }).then((res) => res.data);
-    },{
-        staleTime: 30000
-    });
+    const [date, setDate] = useState(today);
 
-    const [date, setDate] = useState(moment().tz('America/Chicago').format('YYYY-MM-DD'));
-
-    const dateRange = helper.getDateRange();
+    const { data, error, isLoading, isFetching, isError } = useQuery(
+        ["sale",user.token,date],
+        () => fetchListings(user.token, date),
+        { refetchInterval: 30000 }
+    );
 
     useEffect(() => {
         document.title = "PowerPages Home";
+        console.log("Hello");
     },[]);
 
     if(isLoading) {
@@ -36,17 +42,17 @@ export default function Home() {
 
     return (
         <>
-            <h2>New Residential Sale - {data} Records</h2><hr />
+            <h2>New Residential Sale - {data.length} Records</h2><hr />
             <h4>Dates</h4>
             <ListGroup horizontal>
                 {dateRange.map((day,dindex) => (
-                    <ListGroup.Item as="button" className={day == date && "bg-primary text-light"} onClick={() => setDate(day)} key={`date_${dindex}`}>
+                    <ListGroup.Item as="button" className={day === date && "bg-primary text-light"} onClick={() => setDate(day)} key={`date_${dindex}`}>
                         {day}
                     </ListGroup.Item>
                 ))}
             </ListGroup>
             <div className="my-4">
-                <SaleTable listings={data || []}/>
+                <SaleTable listings={data}/>
             </div>
         </>
     )
