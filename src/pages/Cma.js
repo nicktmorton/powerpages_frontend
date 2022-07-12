@@ -65,9 +65,9 @@ export default function Cma() {
 
     return (
         <>
-            <h2>Last 180 Days Sold - {listings.length} Records</h2>
+            <h2>Last 180 Days Sold / Under Contract / Pending - {listings.length} Records</h2>
             <hr />
-            <h4>Filters</h4>
+            <h4>Filters for One-Line CMA</h4>
             <Row className="mb-3">
                 <Col xs={12} sm={10}>
                     <Card className="bg-light">
