@@ -41,9 +41,11 @@ export default function Header() {
                         <Nav.Item>
                             <Nav.Link href="/status">Status Changes</Nav.Link>
                         </Nav.Item>
+                      {user.level <= 2 && (
                         <Nav.Item>
                             <Nav.Link href="/cma">CMA</Nav.Link>
                         </Nav.Item>
+                          )}
                     </>
                     <div className="float-end">
                         {user.level <= 2 && (
