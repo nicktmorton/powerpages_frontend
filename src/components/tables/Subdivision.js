@@ -41,12 +41,6 @@ const mapping = [
         "sort_type": "string"
     },
     {
-        "title": "DOM",
-        "mask": "daysOnMarket",
-        "sortable": true,
-        "sort_type": "int"
-    },
-    {
         "title": "SqFT.",
         "mask": "sqft",
         "number": true   
