@@ -130,6 +130,12 @@ const mappingSecondary = [
         "sort_type": "int"
     },
     {
+        "title": "Lot Size",
+        "mask": "LotSizeDimensions",
+        "sortable": true,
+        "sort_type": "int"
+    },
+    {
         "title": "Pool",
         "mask": "pool"
     }
