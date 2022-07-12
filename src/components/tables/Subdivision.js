@@ -7,6 +7,8 @@ const mapping = [
     {
         "title": "Status",
         "mask": "status"
+        "sortable": true,
+        "sort_type": "string"
     },
     {
         "title": "Update",
