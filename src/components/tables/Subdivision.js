@@ -29,7 +29,7 @@ const mapping = [
         "mask": "listingId"
     },
     {
-        "title": "Current / List $",
+        "title": "Current / Prev List",
         "mask": [ "listPrice", "originalPrice" ],
         "delimiter": " / ",
         "price": true
@@ -84,6 +84,8 @@ const mappingSecondary = [
     {
         "title": "Status",
         "mask": "status"
+        "sortable": true,
+        "sort_type": "string"
     },
     {
         "title": "Close Date",
@@ -104,7 +106,7 @@ const mappingSecondary = [
         "mask": "listingId"
     },
     {
-        "title": "Sold / Last $",
+        "title": "Sold / Prev List",
         "mask": [ "closePrice", "listPrice" ],
         "delimiter": " / ",
         "price": true
