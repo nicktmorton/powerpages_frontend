@@ -147,9 +147,15 @@ const mappingSecondary = [
         "sortable": true,
         "sort_type": "int"
     },
-    {
+        {
         "title": "Garage",
         "mask": "GarageSpaces",
+        "sortable": true,
+        "sort_type": "int"
+    },
+     {
+        "title": "Lot Size",
+        "mask": "LotSizeDimensions",
         "sortable": true,
         "sort_type": "int"
     },
