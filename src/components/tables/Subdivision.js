@@ -41,12 +41,6 @@ const mapping = [
         "sort_type": "string"
     },
     {
-        "title": "Stories",
-        "mask": "numStories"
-        "sortable": true,
-        "sort_type": "int"
-    },
-    {
         "title": "DOM",
         "mask": "daysOnMarket",
         "sortable": true,
@@ -56,6 +50,12 @@ const mapping = [
         "title": "SqFT.",
         "mask": "sqft",
         "number": true   
+    },
+    {
+        "title": "Stories",
+        "mask": "numStories"
+        "sortable": true,
+        "sort_type": "int"
     },
     {
         "title": "Bed/Bath/Mstr Lvl",
@@ -118,12 +118,6 @@ const mappingSecondary = [
         "sort_type": "string"
     },
     {
-        "title": "Stories",
-        "mask": "numStories"
-        "sortable": true,
-        "sort_type": "int"
-    },
-    {
         "title": "DOM",
         "mask": "daysOnMarket",
         "sortable": true,
@@ -133,6 +127,12 @@ const mappingSecondary = [
         "title": "SqFT.",
         "mask": "sqft",
         "number": true,
+        "sortable": true,
+        "sort_type": "int"
+    },
+    {
+        "title": "Stories",
+        "mask": "numStories"
         "sortable": true,
         "sort_type": "int"
     },
