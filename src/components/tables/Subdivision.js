@@ -43,6 +43,8 @@ const mapping = [
     {
         "title": "Stories",
         "mask": "numStories"
+        "sortable": true,
+        "sort_type": "int"
     },
     {
         "title": "DOM",
@@ -59,6 +61,12 @@ const mapping = [
         "title": "Bed/Bath/Mstr Lvl",
         "mask": [ "bed", "bath", "masterLevel"],
         "delimiter": " / "
+    },
+    {
+        "title": "Garage",
+        "mask": "GarageSpaces",
+        "sortable": true,
+        "sort_type": "int"
     },
     {
         "title": "Pool",
@@ -104,6 +112,8 @@ const mappingSecondary = [
     {
         "title": "Stories",
         "mask": "numStories"
+        "sortable": true,
+        "sort_type": "int"
     },
     {
         "title": "DOM",
@@ -132,6 +142,12 @@ const mappingSecondary = [
     {
         "title": "Lot Size",
         "mask": "LotSizeDimensions",
+        "sortable": true,
+        "sort_type": "int"
+    },
+    {
+        "title": "Garage",
+        "mask": "GarageSpaces",
         "sortable": true,
         "sort_type": "int"
     },
