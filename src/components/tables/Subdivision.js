@@ -62,6 +62,12 @@ const mapping = [
         "mask": [ "bed", "bath", "masterLevel"],
         "delimiter": " / "
     },
+        {
+        "title": "Year Built",
+        "mask": "yearBuilt",
+        "sortable": true,
+        "sort_type": "int"
+    },
     {
         "title": "Garage",
         "mask": "GarageSpaces",
