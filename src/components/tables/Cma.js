@@ -29,7 +29,7 @@ const mapping = [
         "mask": "listingId"
     },
     {
-        "title": "Current / Orig $",
+        "title": "Current / Prev List",
         "mask": [ "listPrice", "originalPrice" ],
         "delimiter": " / ",
         "price": true
@@ -53,12 +53,26 @@ const mapping = [
     {
         "title": "SqFT.",
         "mask": "sqft",
-        "number": true   
+        "number": true,
+        "sortable": true,
+        "sort_type": "int" 
     },
     {
         "title": "Bed/Bath/Mstr Lvl",
         "mask": [ "bed", "bath", "masterLevel"],
         "delimiter": " / "
+    },
+            {
+        "title": "Year Built",
+        "mask": "yearBuilt",
+        "sortable": true,
+        "sort_type": "int"
+    },
+        {
+        "title": "Garage",
+        "mask": "GarageSpaces",
+        "sortable": true,
+        "sort_type": "int"
     },
     {
         "title": "Pool",
@@ -94,7 +108,7 @@ const mappingSecondary = [
         "mask": "listingId"
     },
     {
-        "title": "Sold / Last $",
+        "title": "Sold / Prev List",
         "mask": [ "closePrice", "listPrice" ],
         "delimiter": " / ",
         "price": true
@@ -130,6 +144,12 @@ const mappingSecondary = [
     {
         "title": "Year Built",
         "mask": "yearBuilt",
+        "sortable": true,
+        "sort_type": "int"
+    },
+    {
+        "title": "Garage",
+        "mask": "GarageSpaces",
         "sortable": true,
         "sort_type": "int"
     },
