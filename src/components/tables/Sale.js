@@ -43,7 +43,7 @@ const filterListings = (filters,listings) => {
                 return false;
             }
             if(!(subArr.some(s => {
-                const temp = `^${s.split(/\s+/).join('')}`;
+                const temp = `${s.split(/\s+/).join('')}`;
                 const reg = new RegExp(temp,'i');
                 return reg.test(listing["subdivision"].split(/\s+/).join(''))
             }))){

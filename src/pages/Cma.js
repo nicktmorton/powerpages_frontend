@@ -18,7 +18,7 @@ export default function Cma() {
     const {user} = useSelector((state) => state.auth);
 
     const getListingsByCma = async () => {
-        if(search["city"] == "" && search["zip"] == "" && search["subdivision"] == "") {
+        if(search["city"] === "" && search["zip"] === "" && search["subdivision"] === "") {
             setSearchError("Please apply at least one filter");
             return;
         }
@@ -27,6 +27,7 @@ export default function Cma() {
         await fetch(`${process.env.REACT_APP_API_URL}/api/listings/getListingsByCma`,{
             method: 'post',
             headers: {
+                "Access-Control-Allow-Origin": "*",
                 "Authorization": `Bearer ${user.token}`,
                 "Content-Type": "application/json"
             },
