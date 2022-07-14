@@ -7,6 +7,8 @@ const mapping = [
     {
         "title": "Status",
         "mask": "status"
+        "sortable": true,
+        "sort_type": "string"
     },
     {
         "title": "Update",
@@ -27,7 +29,7 @@ const mapping = [
         "mask": "listingId"
     },
     {
-        "title": "Current / List $",
+        "title": "Current / Prev List",
         "mask": [ "listPrice", "originalPrice" ],
         "delimiter": " / ",
         "price": true
@@ -39,24 +41,32 @@ const mapping = [
         "sort_type": "string"
     },
     {
-        "title": "Stories",
-        "mask": "numStories"
-    },
-    {
-        "title": "DOM",
-        "mask": "daysOnMarket",
-        "sortable": true,
-        "sort_type": "int"
-    },
-    {
         "title": "SqFT.",
         "mask": "sqft",
         "number": true   
     },
     {
+        "title": "Stories",
+        "mask": "numStories"
+        "sortable": true,
+        "sort_type": "int"
+    },
+    {
         "title": "Bed/Bath/Mstr Lvl",
         "mask": [ "bed", "bath", "masterLevel"],
         "delimiter": " / "
+    },
+        {
+        "title": "Year Built",
+        "mask": "yearBuilt",
+        "sortable": true,
+        "sort_type": "int"
+    },
+    {
+        "title": "Garage",
+        "mask": "GarageSpaces",
+        "sortable": true,
+        "sort_type": "int"
     },
     {
         "title": "Pool",
@@ -68,6 +78,8 @@ const mappingSecondary = [
     {
         "title": "Status",
         "mask": "status"
+        "sortable": true,
+        "sort_type": "string"
     },
     {
         "title": "Close Date",
@@ -88,7 +100,7 @@ const mappingSecondary = [
         "mask": "listingId"
     },
     {
-        "title": "Sold / Last $",
+        "title": "Sold / Prev List",
         "mask": [ "closePrice", "listPrice" ],
         "delimiter": " / ",
         "price": true
@@ -98,10 +110,6 @@ const mappingSecondary = [
         "mask": "city",
         "sortable": true,
         "sort_type": "string"
-    },
-    {
-        "title": "Stories",
-        "mask": "numStories"
     },
     {
         "title": "DOM",
@@ -117,6 +125,12 @@ const mappingSecondary = [
         "sort_type": "int"
     },
     {
+        "title": "Stories",
+        "mask": "numStories"
+        "sortable": true,
+        "sort_type": "int"
+    },
+    {
         "title": "Bed/Bath/Mstr Lvl",
         "mask": [ "bed", "bath", "masterLevel"],
         "delimiter": " / "
@@ -124,6 +138,17 @@ const mappingSecondary = [
     {
         "title": "Year Built",
         "mask": "yearBuilt",
+        "sortable": true,
+        "sort_type": "int"
+    },
+    {
+        "title": "Garage",
+        "mask": "GarageSpaces",
+        "sortable": true,
+        "sort_type": "int"
+    },
+     "title": "Lot Size",
+        "mask": "LotSizeDimensions",
         "sortable": true,
         "sort_type": "int"
     },
