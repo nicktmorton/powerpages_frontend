@@ -4,7 +4,7 @@ import Table from "../Table";
 const mapping = [
     {
         "title": "Status",
-        "mask": "status"
+        "mask": "status",
         "sortable": true,
         "sort_type": "string"
     },
@@ -57,7 +57,7 @@ const mapping = [
     },
     {
         "title": "Stories",
-        "mask": "numStories"
+        "mask": "numStories",
         "sortable": true,
         "sort_type": "int"
     },
@@ -87,7 +87,7 @@ const mapping = [
 const mappingSecondary = [
     {
         "title": "Status",
-        "mask": "status"
+        "mask": "status",
         "sortable": true,
         "sort_type": "string"
     },
@@ -140,7 +140,7 @@ const mappingSecondary = [
     },
     {
         "title": "Stories",
-        "mask": "numStories"
+        "mask": "numStories",
         "sortable": true,
         "sort_type": "int"
     },
