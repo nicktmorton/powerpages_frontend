@@ -24,7 +24,7 @@ const mapping = [
     },
     {
         "title": "Subdivision",
-        "mask": "subdivision"
+        "mask": "subdivision",
         "sortable": true,
         "sort_type": "string"
     },
@@ -109,7 +109,9 @@ const mappingSecondary = [
     },
     {
         "title": "Subdivision",
-        "mask": "subdivision"
+        "mask": "subdivision",
+        "sortable": true,
+        "sort_type": "string"
     },
     {
         "title": "MLS #",
