@@ -74,9 +74,15 @@ const mapping = [
         "sortable": true,
         "sort_type": "int"
     },
-        {
+    {
         "title": "Garage",
-        "mask": "GarageSpaces",
+        "mask": "garageSpaces",
+        "sortable": true,
+        "sort_type": "int"
+    },
+    {
+        "title": "Lot Size",
+        "mask": "lotSizeAcres",
         "sortable": true,
         "sort_type": "int"
     },
@@ -159,15 +165,15 @@ const mappingSecondary = [
         "sortable": true,
         "sort_type": "int"
     },
-        {
+    {
         "title": "Garage",
-        "mask": "GarageSpaces",
+        "mask": "garageSpaces",
         "sortable": true,
         "sort_type": "int"
     },
-     {
+    {
         "title": "Lot Size",
-        "mask": "LotSizeDimensions",
+        "mask": "lotSizeAcres",
         "sortable": true,
         "sort_type": "int"
     },

@@ -183,7 +183,7 @@ export default function Table({ header, variant, mapping, listings }) {
                     const masked = getMaskedListing(v);
                     return (<tr style={{backgroundColor: '#FFFFFF'}} key={vindex}>
                         {masked.map((col,index) => (
-                            <td className={(index === 0 && col===null) ? "text-center" : ""} key={`${vindex}_${index}`}>
+                            <td className={(index === 0 && col===null) ? "text-center" : ""} key={`${vindex}_${index}`} style={{ whiteSpace: 'pre' }}>
                                 {index === 0 && col === null 
                                 ?
                                 (

@@ -34,7 +34,7 @@
     {
         "title": "Current / Orig $",
         "mask": [ "listPrice", "originalPrice" ],
-        "delimiter": " / ",
+        "delimiter": "\n",
         "price": true
     },
     {
@@ -71,9 +71,9 @@
         "sortable": true,
         "sort_type": "int"
     },
-     {
+    {
         "title": "Garage",
-        "mask": "GarageSpaces",
+        "mask": "garageSpaces",
         "sortable": true,
         "sort_type": "int"
     },
