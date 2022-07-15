@@ -71,6 +71,12 @@
         "sortable": true,
         "sort_type": "int"
     },
+     {
+        "title": "Garage",
+        "mask": "GarageSpaces",
+        "sortable": true,
+        "sort_type": "int"
+    },
     {
         "title": "Pool",
         "mask": "pool"
