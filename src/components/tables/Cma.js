@@ -45,6 +45,12 @@ const mapping = [
         "sort_type": "string"
     },
     {
+        "title": "Zip",
+        "mask": "zip",
+        "sortable": true,
+        "sort_type": "string"
+    },
+    {
         "title": "DOM",
         "mask": "daysOnMarket",
         "sortable": true,
