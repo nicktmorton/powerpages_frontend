@@ -75,6 +75,12 @@ const mapping = [
         "sortable": true,
         "sort_type": "int"
     },
+        {
+        "title": "Gar",
+        "mask": "garageSpaces",
+        "sortable": true,
+        "sort_type": "int"
+    },
     {
         "title": "Pool",
         "mask": "pool"
