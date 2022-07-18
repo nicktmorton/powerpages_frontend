@@ -74,7 +74,7 @@ const mapping = [
         "delimiter": " / "
     },
     {
-        "title": "Year Built",
+        "title": "Yr Blt",
         "mask": "yearBuilt",
         "sortable": true,
         "sort_type": "int"
