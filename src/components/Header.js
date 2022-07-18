@@ -58,9 +58,11 @@ export default function Header() {
                                 <Nav.Link href="/admin">Admin</Nav.Link>
                             </Nav.Item>
                         )}
+                        {user.level <= 2 && (
                         <Nav.Item className="float-start">
                             <Nav.Link href="https://macromodus.com/powerpage/powerpage_help.html" target="_blank">Help</Nav.Link>
                         </Nav.Item>
+                         )}
                         <Button className="float-end" variant="link" onClick={handleLogout}>
                             <FontAwesomeIcon icon={faSignOut} />
                             <span className="mx-2">Logout</span>
