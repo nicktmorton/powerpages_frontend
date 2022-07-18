@@ -68,6 +68,12 @@ const mapping = [
         "sortable": true,
         "sort_type": "int"
     },
+     {
+        "title": "Acre",
+        "mask": "lotSizeAcres",
+        "sortable": true,
+        "sort_type": "int"
+    },
     {
         "title": "Pool",
         "mask": "pool"
