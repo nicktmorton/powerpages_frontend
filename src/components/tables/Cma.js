@@ -75,19 +75,19 @@ const mapping = [
         "delimiter": " / "
     },
             {
-        "title": "Year Built",
+        "title": "Yr Blt",
         "mask": "yearBuilt",
         "sortable": true,
         "sort_type": "int"
     },
     {
-        "title": "Garage",
+        "title": "Gar",
         "mask": "garageSpaces",
         "sortable": true,
         "sort_type": "int"
     },
     {
-        "title": "Lot Size",
+        "title": "Acre",
         "mask": "lotSizeAcres",
         "sortable": true,
         "sort_type": "int"
@@ -172,19 +172,19 @@ const mappingSecondary = [
         "delimiter": " / "
     },
     {
-        "title": "Year Built",
+        "title": "Yr Blt",
         "mask": "yearBuilt",
         "sortable": true,
         "sort_type": "int"
     },
     {
-        "title": "Garage",
+        "title": "Gar",
         "mask": "garageSpaces",
         "sortable": true,
         "sort_type": "int"
     },
     {
-        "title": "Lot Size",
+        "title": "Acre",
         "mask": "lotSizeAcres",
         "sortable": true,
         "sort_type": "int"
