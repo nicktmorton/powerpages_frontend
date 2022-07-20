@@ -1,6 +1,7 @@
 import Table from "../Table";
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { Card, Form, Row, Col, Button } from "react-bootstrap";
+import Mapping from "../maps";
 
 const mapping = require("../../json/projections/Sale.json");
 
@@ -67,6 +68,9 @@ export default function SaleTable({ listings }) {
         "zip": initialFilters && initialFilters["zip"] || "",
         "subdivision": initialFilters && initialFilters["subdivision"] || ""
     });
+    const [view, setView] = useState("table");
+
+    const toggleView = () => view === "table" ? setView("map") : setView("table");
 
     const submitFilters = () => {
         setFilters(inputs);
@@ -99,6 +103,7 @@ export default function SaleTable({ listings }) {
 
     return (
         <>
+            <Button onClick={toggleView} size="sm" className="mt-2">Toggle View</Button>
             <hr />
             <h4>Filters</h4>
             <Row className="mb-3">
@@ -136,12 +141,17 @@ export default function SaleTable({ listings }) {
                     </Card>
                 </Col>
             </Row>
-            <Table
-            header="Powerpage NEW RESIDENTIAL SINGLE FAMILY Listings for SALE - For SALE or LEASE will show on SALE and LEASE tables"
-            variant="primary"
-            mapping={mapping}
-            listings={filteredListings}
-            />
+            {view === "table" ? (
+                <Table
+                header="Powerpage NEW RESIDENTIAL SINGLE FAMILY Listings for SALE - For SALE or LEASE will show on SALE and LEASE tables"
+                variant="primary"
+                mapping={mapping}
+                listings={filteredListings}
+                />
+            )
+            :
+            (<Mapping listings={filteredListings} />)
+            }
         </>
     )
 
