@@ -103,7 +103,7 @@ export default function SaleTable({ listings }) {
 
     return (
         <>
-            <Button onClick={toggleView} size="sm" className="mt-2">Toggle View</Button>
+            <Button onClick={toggleView} size="sm" className="mt-2">Satellite View</Button>
             <hr />
             <h4>Filters</h4>
             <Row className="mb-3">
