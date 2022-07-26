@@ -143,7 +143,7 @@ export default function SaleTable({ listings }) {
             </Row>
             {view === "table" ? (
                 <Table
-                header="NEW Residential Single Family Listings - For SALE or LEASE will show on SALE and LEASE tables"
+                header="NEW Residential Single Family Listings - Properites for both SALE or LEASE will show on both SALE and LEASE tables"
                 variant="primary"
                 mapping={mapping}
                 listings={filteredListings}
