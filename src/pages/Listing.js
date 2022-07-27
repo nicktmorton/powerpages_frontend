@@ -93,7 +93,7 @@ export default function Listing() {
                                     </tr>
                                     <tr>
                                         <td>
-                                            <b>Stories</b>: {listing['StoriesTotal'] ? `${listing['StoriesTotal']}` : ''}
+                                            <b>Stories</b>: {listing['Levels'] ? `${listing['Levels']}` : ''}
                                         </td>
                                         <td>
                                             <b>Liv Areas</b>: {listing['NumberOfLivingAreas'] ? `${listing['NumberOfLivingAreas']}` : ''}
