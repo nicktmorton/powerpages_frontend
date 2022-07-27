@@ -81,7 +81,7 @@ export default function Cma() {
                         <Card.Body>
                             <Form>
                                 <small>NOTE: Multiple filters must be comma-separated</small><br/>
-                                <small>NOTE: Subdivision names can use a wildcard (*) prefix and/or suffix</small>
+                                <small>NOTE: Use the wildcard (*) as prefix and/or suffix for subdivision.  If you don't use the (*) wildcard, the subdivision name MUST be exact.</small>
                                 <Row className="mt-4">
                                     <Col xs={5}>
                                         <Form.Group>
