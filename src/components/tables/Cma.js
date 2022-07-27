@@ -66,7 +66,7 @@ const mapping = [
     },
     {
         "title": "Stories",
-        "mask": "numStories",
+        "mask": "levels",
         "sortable": true,
         "sort_type": "int"
     },
