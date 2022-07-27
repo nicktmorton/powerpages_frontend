@@ -23,6 +23,7 @@ export default function Home() {
 
     const { user } = useSelector((state) => state.auth);
 
+    const [filteredTotal, setFilteredTotal] = useState(0);
     const [date, setDate] = useState(today);
 
     const { data, error, isLoading, isFetching, isError } = useQuery(
@@ -42,7 +43,7 @@ export default function Home() {
 
     return (
         <>
-            <h2>New Residential Sale - {data.length} Total Records</h2><hr />
+            <h2>New Residential Sale - {data.length} Total Records {filteredTotal > 0 && `(${filteredTotal} Records Shown)`}</h2><hr />
             <h4>Dates</h4>
             <ListGroup horizontal>
                 {dateRange.map((day,dindex) => (
@@ -52,7 +53,7 @@ export default function Home() {
                 ))}
             </ListGroup>
             <div className="my-4">
-                <SaleTable listings={data}/>
+                <SaleTable listings={data} setFilteredTotal={setFilteredTotal}/>
             </div>
         </>
     )

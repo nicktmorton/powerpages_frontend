@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import { GoogleMap, useLoadScript } from "@react-google-maps/api";
+import InfoWindowMarker from "./InfoWindowMarker";
 
 const containerStyle = {
     width: '100%',
@@ -11,9 +12,16 @@ const center = {
     lng: -96.7970
 };
 
-const createKey = (location) => {
-    return location.lat + location.lng
-};
+const getAddress = (location) => {
+    const pieces = [
+        location["streetNumber"],
+        location["streetDirPrefix"],
+        location["streetName"],
+        location["streetSuffix"],
+        location["streetDirSuffix"]
+    ];
+    return pieces.join(' ');
+}
 
 export default function Mapping({ listings }) {
 
@@ -35,12 +43,19 @@ export default function Mapping({ listings }) {
         center={center}
         zoom={10}
         >
-            {mounted && listings && listings.map((location) => (
-                <Marker
-                key={createKey(location)}
-                position={{ lat: location['latitude'], lng: location['longitude'] }}
-                />
-            ))}
+            {mounted && listings && listings.map((location,index) => {
+                if(location['latitude'] != "" && location['longitude'] != "") {
+                    const address = getAddress(location);
+                    return (
+                        <InfoWindowMarker
+                            key={index}
+                            latitude={location['latitude']}
+                            longitude={location['longitude']}
+                            address={address}
+                        />
+                    )
+                }
+            })}
         </GoogleMap>
     )
 

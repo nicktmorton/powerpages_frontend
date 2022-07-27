@@ -7,7 +7,7 @@ const mapping = require("../../json/projections/Sale.json");
 
 const initialFilters = JSON.parse(window.localStorage.getItem('POWERPAGES_FILTERS'));
 
-const filterListings = (filters,listings) => {
+const filterListings = (filters,listings,setFilteredTotal) => {
     let running = false;
     let cityArr = [];
     let zipArr = [];
@@ -53,10 +53,10 @@ const filterListings = (filters,listings) => {
         }
         return true;
     });
-    return res
+    return res;
 }
 
-export default function SaleTable({ listings }) {
+export default function SaleTable({ listings, setFilteredTotal }) {
 
     const [inputs, setInputs] = useState({
         "city": initialFilters && initialFilters["city"] || "",
@@ -84,10 +84,11 @@ export default function SaleTable({ listings }) {
     };
 
     const filteredListings = useMemo(() => {
-        return filterListings(filters, listings)
+        return filterListings(filters, listings, setFilteredTotal);
     },[filters, listings]);
 
     const resetFilters = () => {
+        setFilteredTotal(0);
         localStorage.removeItem('POWERPAGES_FILTERS')
         setFilters({
             city: "",
@@ -101,9 +102,13 @@ export default function SaleTable({ listings }) {
         });
     };
 
+    useEffect(() => {
+        setFilteredTotal(filteredListings.length);
+    },[filteredListings])
+
     return (
         <>
-            <Button onClick={toggleView} size="sm" className="mt-2">Satellite View</Button>
+            <Button onClick={toggleView} size="sm" className="mt-2">{view === "map" ? "Table": "Satellite"} View</Button>
             <hr />
             <h4>Filters</h4>
             <Row className="mb-3">
