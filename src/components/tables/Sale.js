@@ -7,7 +7,7 @@ const mapping = require("../../json/projections/Sale.json");
 
 const initialFilters = JSON.parse(window.localStorage.getItem('POWERPAGES_FILTERS'));
 
-const filterListings = (filters,listings,setFilteredTotal) => {
+const filterListings = (filters,listings) => {
     let running = false;
     let cityArr = [];
     let zipArr = [];

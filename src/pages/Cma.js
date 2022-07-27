@@ -7,8 +7,6 @@ import axios from "axios";
 import { useQuery } from "react-query";
 
 async function fetchListings(token, search) {
-    console.log("Token: ",token);
-    console.log("Search: ",search);
     return fetch(`${process.env.REACT_APP_API_URL}/api/listings/getListingsByCma`,{
         method: 'post',
         headers: {
@@ -27,7 +25,7 @@ export default function Cma() {
     const [search, setSearch] = useState({
         city: "",
         zip: "",
-        subdivision: ""
+        subdivision_cma: ""
     });
     const [searchError, setSearchError] = useState("");
 
@@ -44,7 +42,7 @@ export default function Cma() {
     );
 
     const getListingsByCma = () => {
-        if(search["city"] === "" && search["zip"] === "" && search["subdivision"] === "") {
+        if(search["city"] === "" && search["zip"] === "" && search["subdivision_cma"] === "") {
             setSearchError("Please apply at least one filter");
             return;
         }
@@ -63,7 +61,7 @@ export default function Cma() {
         setSearch({
             city: "",
             zip: "",
-            subdivision: ""
+            subdivision_cma: ""
         });
         setSearchError("");
     };
@@ -100,7 +98,7 @@ export default function Cma() {
                                     <Col xs={5}>
                                         <Form.Group>
                                             <Form.Label>Subdivision</Form.Label>
-                                            <Form.Control type="text" name="subdivision" value={search["subdivision"]} onChange={handleChange} size="sm"/>
+                                            <Form.Control type="text" name="subdivision_cma" value={search["subdivision_cma"]} onChange={handleChange} size="sm"/>
                                         </Form.Group>
                                     </Col>
                                 </Row>
