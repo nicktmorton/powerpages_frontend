@@ -12,6 +12,7 @@ const mapping = [
         "title": "Update",
         "mask": "update",
         "timestamp": true
+        "sort_type": "int" 
     },
     {
         "title": "Address",
