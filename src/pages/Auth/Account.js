@@ -266,6 +266,66 @@ export default function Account() {
                                                     <input type="text" onChange={(event) => handleCodeChange(19,event.target.value)} value={codes[19]} />
                                                 </td>
                                             </tr>
+                                             <tr>
+                                                 <td>
+                                                    21) {`${user.username}-`}
+                                                    <input type="text" onChange={(event) => handleCodeChange(20,event.target.value)} value={codes[20]} />
+                                                </td>
+                                            </tr>
+                                                                                         <tr>
+                                                 <td>
+                                                    22) {`${user.username}-`}
+                                                    <input type="text" onChange={(event) => handleCodeChange(21,event.target.value)} value={codes[21]} />
+                                                </td>
+                                            </tr>
+                                                                                         <tr>
+                                                 <td>
+                                                    23) {`${user.username}-`}
+                                                    <input type="text" onChange={(event) => handleCodeChange(22,event.target.value)} value={codes[22]} />
+                                                </td>
+                                            </tr>
+                                                                                         <tr>
+                                                 <td>
+                                                    24) {`${user.username}-`}
+                                                    <input type="text" onChange={(event) => handleCodeChange(23,event.target.value)} value={codes[23]} />
+                                                </td>
+                                            </tr>
+                                                                                         <tr>
+                                                 <td>
+                                                    25) {`${user.username}-`}
+                                                    <input type="text" onChange={(event) => handleCodeChange(24,event.target.value)} value={codes[24]} />
+                                                </td>
+                                            </tr>
+                                                                                         <tr>
+                                                 <td>
+                                                    26) {`${user.username}-`}
+                                                    <input type="text" onChange={(event) => handleCodeChange(25,event.target.value)} value={codes[25]} />
+                                                </td>
+                                            </tr>
+                                                                                         <tr>
+                                                 <td>
+                                                    27) {`${user.username}-`}
+                                                    <input type="text" onChange={(event) => handleCodeChange(26,event.target.value)} value={codes[26]} />
+                                                </td>
+                                            </tr>
+                                                                                         <tr>
+                                                 <td>
+                                                    28) {`${user.username}-`}
+                                                    <input type="text" onChange={(event) => handleCodeChange(27,event.target.value)} value={codes[27]} />
+                                                </td>
+                                            </tr>
+                                                                                         <tr>
+                                                 <td>
+                                                    29) {`${user.username}-`}
+                                                    <input type="text" onChange={(event) => handleCodeChange(28,event.target.value)} value={codes[28]} />
+                                                </td>
+                                            </tr>
+                                                                                         <tr>
+                                                 <td>
+                                                    30) {`${user.username}-`}
+                                                    <input type="text" onChange={(event) => handleCodeChange(29,event.target.value)} value={codes[29]} />
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </Table>
                                     <Button variant="primary" size="sm" className="mt-3" disabled={saving} onClick={saveClientCodes}>
