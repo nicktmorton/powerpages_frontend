@@ -139,7 +139,7 @@ export default function Account() {
                                 <div className="mt-4">
                                     <h4 id="cc">Client Login Codes</h4>
                                     Please use the following fields to activate accounts for your clients. Simply enter their name or whatever username
-				    you want to provide them that they should not forget - they will use this alone to access the Powerpage.  Simply enter a new ID whenever you want to 
+				    you want to provide them that they should not forget - they will use you enter in the field, not the entire string, to access the Powerpage.  Simply enter a new ID whenever you want to 
 				    provide the PowerPage to someone else. If you want to stop access for a user, just replace their current username with a new one.
 				    <br /><br />
 				    Please let your clients know that If an ID is shared, whoever is logged in at that moment will be logged out of the PowerPage. Let your clients know it is clearly best to keep their ID private.
