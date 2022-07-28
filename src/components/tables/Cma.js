@@ -12,7 +12,7 @@ const mapping = [
         "title": "Update",
         "mask": "update",
         "timestamp": true,
-        "sort_type": "int" 
+        "sort_type": "string" 
     },
     {
         "title": "Address",
@@ -110,7 +110,7 @@ const mappingSecondary = [
         "title": "Close Date",
         "mask": "closeDate",
         "exclude": "0000-00-00",
-        "sort_type": "int" 
+        "sort_type": "string"
     },
     {
         "title": "Address",
@@ -164,9 +164,7 @@ const mappingSecondary = [
     },
     {
         "title": "Stories",
-        "mask": "numStories",
-        "sortable": true,
-        "sort_type": "int"
+        "mask": "numStories"
     },
     {
         "title": "Bed/Bath/Mstr Lvl",
