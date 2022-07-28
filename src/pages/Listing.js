@@ -63,11 +63,11 @@ export default function Listing() {
                 <Col xs="12" lg="8">
                     <Row>
                         <Col><img src={ currentImage ? currentImage : (listing['_photos'] && listing['_photos'][0]) || ""} alt="" style={{border:"3px solid black"}} /></Col>
-                        <p><a href={`https://www.google.com/maps?t=k&q=loc:${listing['Latitude']},${listing['Longitude']}&ll=${listing['Latitude']},${listing['Longitude']}`} target={"blank"}>Satellite View</a></p>
+                        <p><a href={`https://www.google.com/maps?t=k&q=loc:${listing['Latitude']},${listing['Longitude']}&ll=${listing['Latitude']},${listing['Longitude']}`} target={"blank"}><b>Satellite View</b></a></p>
                     </Row>
                     {listing['VirtualTourURLUnbranded'] && (
                         <Row>
-                            <p><a href={listing['VirtualTourURLUnbranded']} target="_blank">Virtual Tour</a></p>
+                            <p><a href={listing['VirtualTourURLUnbranded']} target="_blank"><b>Virtual Tour</b></a></p>
                         </Row>
                     )}
                     <Row className="mt-2">
