@@ -1,5 +1,8 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
+import { Button } from "react-bootstrap";
 import Table from "../Table";
+import Mapping from "../maps";
 
 const mapping = [
     {
@@ -199,13 +202,26 @@ export default function CmaTable({ listings }) {
 
     const {user} = useSelector((state) => state.auth);
 
+    const [view, setView] = useState("table");
+
+    const toggleView = () => view === "table" ? setView("map") : setView("table");
+
     return (
-        <Table
-        header="Powerpage SOLD Listings Last 180 Days"
-        variant="primary"
-        mapping={user.level > 2 ? mapping : mappingSecondary}
-        listings={listings}
-        />
+        <>
+            <Button onClick={toggleView} size="sm" className="mt-2">{view === "map" ? "Table": "Satellite"} View</Button>
+            <hr />
+            {view === "table" ? (
+                <Table
+                header="Powerpage SOLD Listings Last 180 Days"
+                variant="primary"
+                mapping={user.level > 2 ? mapping : mappingSecondary}
+                listings={listings}
+                />
+            )
+            :
+            (<Mapping listings={listings} />)
+            }
+        </>
     )
 
 }

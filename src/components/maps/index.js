@@ -41,7 +41,7 @@ export default function Mapping({ listings }) {
         <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
-        zoom={10}
+        zoom={8}
         >
             {mounted && listings && listings.map((location,index) => {
                 if(location['latitude'] != "" && location['longitude'] != "") {
