@@ -11,7 +11,7 @@ const mapping = [
     {
         "title": "Update",
         "mask": "update",
-        "timestamp": true
+        "timestamp": true,
         "sort_type": "int" 
     },
     {
@@ -66,7 +66,7 @@ const mapping = [
     },
     {
         "title": "Stories",
-        "mask": "levels",
+        "mask": "numStories",
         "sortable": true,
         "sort_type": "int"
     },
@@ -109,7 +109,8 @@ const mappingSecondary = [
     {
         "title": "Close Date",
         "mask": "closeDate",
-        "exclude": "0000-00-00"
+        "exclude": "0000-00-00",
+        "sort_type": "int" 
     },
     {
         "title": "Address",
@@ -163,7 +164,7 @@ const mappingSecondary = [
     },
     {
         "title": "Stories",
-        "mask": "levels",
+        "mask": "numStories",
         "sortable": true,
         "sort_type": "int"
     },
