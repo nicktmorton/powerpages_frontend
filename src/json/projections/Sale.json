@@ -4,9 +4,11 @@
         "mask": null
     },
     {
-        "title": "List Date",
+        "title": "Time",
         "mask": "init",
         "timestamp": true
+        "sortable": true,
+        "sort_type": "string"
     },
     {
         "title": "Address",
@@ -57,6 +59,12 @@
         "title": "SqFT.",
         "mask": "sqft",
         "number": true,
+        "sortable": true,
+        "sort_type": "int"
+    },
+    {
+        "title": "Stories",
+        "mask": "numStories",
         "sortable": true,
         "sort_type": "int"
     },
