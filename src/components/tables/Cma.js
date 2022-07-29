@@ -167,7 +167,9 @@ const mappingSecondary = [
     },
     {
         "title": "Stories",
-        "mask": "numStories"
+        "mask": "numStories",
+        "sortable": true,
+        "sort_type": "int"
     },
     {
         "title": "Bed/Bath/Mstr Lvl",
