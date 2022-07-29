@@ -166,7 +166,7 @@ const mappingSecondary = [
         "sort_type": "int"
     },
     {
-        "title": "Stories",
+        "title": "Sty",
         "mask": "numStories",
         "sortable": true,
         "sort_type": "int"
